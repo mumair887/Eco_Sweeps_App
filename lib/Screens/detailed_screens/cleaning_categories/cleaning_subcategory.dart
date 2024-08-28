@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
+import 'package:service_app/Controller/category_controller.dart';
+import 'package:service_app/Screens/detailed_screens/laundry_screens/laundry_detail_screen.dart';
+import 'package:service_app/Screens/detailed_screens/most_booked_services.dart';
+import 'package:service_app/Widgets/container_widget.dart';
+import '../../../Constants/App_colors.dart';
+import '../../../Models/sub_category.dart';
+import 'cleaning_detail_screen.dart';
+
+class CleaningSubcategoryScreen extends StatefulWidget {
+  final String id;
+  const CleaningSubcategoryScreen({super.key, required this.id});
+
+  @override
+  State<CleaningSubcategoryScreen> createState() =>
+      _CleaningSubcategoryScreenState();
+}
+
+class _CleaningSubcategoryScreenState extends State<CleaningSubcategoryScreen> {
+  CategoryController categoryController = CategoryController();
+
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.sizeOf(context).height;
+    double width = MediaQuery.sizeOf(context).width;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Cleaning Categories',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Divider(thickness: 3, color: AppColors.lightGrey),
+              SizedBox(height: height * 0.03),
+              FutureBuilder(
+                future: categoryController.fetchSubCategory(widget.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData ||
+                      snapshot.data!.data!.isEmpty) {
+                    return const Center(child: Text('No data available'));
+                  }
+
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.data!.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return buildSubCategoryItem(
+                          context, index, snapshot.data!);
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildSubCategoryItem(
+      BuildContext context, int index, SubCategoryModel subCategory) {
+    double height = MediaQuery.sizeOf(context).height;
+    double width = MediaQuery.sizeOf(context).width;
+
+    return InkWell(
+      onTap: () {
+        // Handle onTap event here
+      },
+      child: ContainerWidget(
+        margin: const EdgeInsets.only(bottom: 10),
+        height: height * .14,
+        width: width,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 2),
+              blurRadius: 2,
+              spreadRadius: 0.5,
+            ),
+          ],
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          border: Border.all(color: AppColors.white),
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Container(
+                height: height * 0.10,
+                width: width * 0.20,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image:
+                        NetworkImage(subCategory.data![index].image.toString()),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                subCategory.data![index].name.toString(),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
