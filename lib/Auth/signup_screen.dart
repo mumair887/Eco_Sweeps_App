@@ -5,7 +5,6 @@ import 'package:service_app/Controller/auth_controller.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
 import 'package:service_app/Widgets/text_widgets.dart';
 
-
 import '../Constants/App_colors.dart';
 import '../Widgets/custom_textformfield.dart';
 
@@ -235,24 +234,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: height * .20,
                 ),
                 RoundButtonWidget(
-                    loading: loading, // Loading indicator
-                    title: 'Get Verification Code',
-                    buttonColor: AppColors.lightgreen,
-                    onpress: () async {
-                      if (formkey.currentState!.validate()) {
-                        authController.signUp(
-                          nameController.text,
-                          emailcontroller.text,
-                          phone_numbercontroller.text,
-                          Passwordcontroller.text,
-                          context,
-                        );
-
-                       
-                         
-                          
-                        
-                        } 
+                  loading: loading, // Loading indicator
+                  title: 'Get Verification Code',
+                  buttonColor: AppColors.lightgreen,
+                  onpress: () async {
+                    if (formkey.currentState!.validate()) {
+                      authController.signUp(
+                        nameController.text,
+                        emailcontroller.text,
+                        phone_numbercontroller.text,
+                        Passwordcontroller.text,
+                        context,
+                      );
+                    }
                   },
                 ),
                 Row(
