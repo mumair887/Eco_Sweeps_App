@@ -15,8 +15,8 @@ Future<ProductModel> getProducts()async{
   try{
   var response  =  await http.post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productUrl}"),
   body: {
-    "category_id":"",
-    "sub_category_id":"",
+    "category_id":"5",
+    "sub_category_id":"4",
     "show_on_home":"1",
   }
   );

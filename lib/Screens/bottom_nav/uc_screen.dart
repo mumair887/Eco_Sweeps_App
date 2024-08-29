@@ -7,8 +7,6 @@ import 'package:service_app/Controller/category_controller.dart';
 
 import 'package:service_app/Screens/detailed_screens/cleaning_categories/cleaning_subcategory.dart';
 
-import 'package:service_app/Screens/detailed_screens/laundry_screens/laundry_detail_screen.dart';
-
 import 'package:service_app/Widgets/custom_textformfield.dart';
 
 import '../../Constants/App_colors.dart';
@@ -313,11 +311,11 @@ class _UcScreenState extends State<UcScreen> {
                       height: height * .20,
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LaundryDetailScreen()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             const LaundryDetailScreen()));
                         },
                         child: ListView.builder(
                           shrinkWrap: true,
@@ -387,11 +385,11 @@ class _UcScreenState extends State<UcScreen> {
                   height: height * .20,
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const LaundryDetailScreen()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             const LaundryDetailScreen()));
                     },
                     child: ListView.builder(
                       shrinkWrap: true,
@@ -460,11 +458,11 @@ class _UcScreenState extends State<UcScreen> {
                     height: height * .20,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const LaundryDetailScreen()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             const LaundryDetailScreen()));
                       },
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -530,11 +528,11 @@ class _UcScreenState extends State<UcScreen> {
                     height: height * .20,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const LaundryDetailScreen()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             const LaundryDetailScreen()));
                       },
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -602,11 +600,11 @@ class _UcScreenState extends State<UcScreen> {
                     height: height * .20,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const LaundryDetailScreen()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             const LaundryDetailScreen()));
                       },
                       child: ListView.builder(
                         shrinkWrap: true,

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Auth/otp_verification_screen.dart';
 import 'package:service_app/Constants/api_url.dart';
+import 'package:service_app/Screens/bottom_nav/bottom_navbar.dart';
 import 'package:service_app/Screens/bottom_nav/uc_screen.dart';
 import 'package:service_app/Utils/toast_component.dart';
 
@@ -40,8 +41,9 @@ class AuthController {
                 builder: (context) => const OtpVerificationScreen()));
         Get.snackbar('Eco Sweeps', 'Put OTP ', backgroundColor: Colors.green);
         log(response.body.toString());
-      }else{
-        Get.snackbar('Eco Sweeps', 'Add required data', backgroundColor: Colors.red);
+      } else {
+        Get.snackbar('Eco Sweeps', 'Add required data',
+            backgroundColor: Colors.red);
       }
     } catch (e) {
       ToastComponent.showDialog("$e");
@@ -62,8 +64,8 @@ class AuthController {
         "password": password,
       });
       if (response.statusCode == 200) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const UcScreen()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const BottomNavbar()));
         Get.snackbar('Eco Sweeps', 'Logged in sucessfully',
             backgroundColor: Colors.green);
       } else {
@@ -87,11 +89,11 @@ class AuthController {
             "verification_code": verificationCode,
           });
       if (response.statusCode == 200) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const UcScreen()));
-        Get.snackbar('Eco Sweeps', 'User Registerd sucessfully', backgroundColor: Colors.green);
-      }
-      else{
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const BottomNavbar()));
+        Get.snackbar('Eco Sweeps', 'User Registerd sucessfully',
+            backgroundColor: Colors.green);
+      } else {
         Get.snackbar('Eco Sweeps', 'Wrong OTP');
       }
     } catch (e) {

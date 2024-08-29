@@ -8,7 +8,7 @@ import '../Models/category.dart';
 
 class CategoryController extends ChangeNotifier {
   CategoryModel? categoryModel;
-  SubCategoryModel? subCategoryModel;
+  SubcategoryModel? subCategoryModel;
 
 
   Future<CategoryModel> fetchCategory() async {
@@ -35,7 +35,7 @@ class CategoryController extends ChangeNotifier {
     }
   }
 
-  Future<SubCategoryModel> fetchSubCategory(String? catId) async {
+  Future<SubcategoryModel> fetchSubCategory(String? catId) async {
     try {
       var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.subCategoryUrl}"),
@@ -50,11 +50,11 @@ class CategoryController extends ChangeNotifier {
       var decodedData = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        subCategoryModel = SubCategoryModel.fromJson(decodedData);
+        subCategoryModel = SubcategoryModel.fromJson(decodedData);
         notifyListeners();
         return subCategoryModel!;
       } else {
-        return SubCategoryModel();
+        return SubcategoryModel();
       }
     } catch (e) {
       log("Error in fetchSubCategory: $e");
