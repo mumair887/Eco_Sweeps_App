@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:pinput/pinput.dart';
 import 'package:service_app/Controller/auth_controller.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
 import '../Constants/App_colors.dart';

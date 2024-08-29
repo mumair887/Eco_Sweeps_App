@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 import 'package:service_app/Controller/category_controller.dart';
 import 'package:service_app/Screens/detailed_screens/laundry_screens/laundry_detail_screen.dart';
-import 'package:service_app/Screens/detailed_screens/most_booked_services.dart';
 import 'package:service_app/Widgets/container_widget.dart';
 import '../../../Constants/App_colors.dart';
 import '../../../Models/sub_category.dart';
-import 'cleaning_detail_screen.dart';
 
 class CleaningSubcategoryScreen extends StatefulWidget {
   final String id;
@@ -19,11 +16,10 @@ class CleaningSubcategoryScreen extends StatefulWidget {
 
 class _CleaningSubcategoryScreenState extends State<CleaningSubcategoryScreen> {
   CategoryController categoryController = CategoryController();
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
-    double width = MediaQuery.sizeOf(context).width;
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -70,13 +66,18 @@ class _CleaningSubcategoryScreenState extends State<CleaningSubcategoryScreen> {
   }
 
   Widget buildSubCategoryItem(
-      BuildContext context, int index, SubCategoryModel subCategory) {
+      BuildContext context, int index, SubcategoryModel subCategory) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
 
     return InkWell(
       onTap: () {
-        // Handle onTap event here
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LaundryDetailScreen(
+                      id: subCategory.data![index].id.toString(),
+                    )));
       },
       child: ContainerWidget(
         margin: const EdgeInsets.only(bottom: 10),
