@@ -29,7 +29,7 @@ Future<ProductModel> getProducts()async{
     return ProductModel();
   }
 }catch(e){
-  ToastComponent.showDialog("");
+  ToastComponent.showDialogError("");
   return ProductModel();
 }
 }

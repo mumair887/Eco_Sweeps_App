@@ -4,8 +4,6 @@ import 'package:service_app/Auth/login_screen.dart';
 import 'package:service_app/Controller/auth_controller.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
 import 'package:service_app/Widgets/text_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import '../Constants/App_colors.dart';
 import '../Widgets/custom_textformfield.dart';
 
@@ -235,51 +233,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: height * .20,
                 ),
                 RoundButtonWidget(
-                  loading: loading, // Loading indicator
-                  title: 'Get Verification Code',
-                  buttonColor: AppColors.lightgreen,
-                  onpress: () async {
-                    if (formkey.currentState!.validate()) {
-                      setState(() {
-                        loading = true;
-                      });
-
-                      try {
-                        var response = await authController.signUp(
+                    loading: loading, // Loading indicator
+                    title: 'Get Verification Code',
+                    buttonColor: AppColors.lightgreen,
+                    onpress: () async {
+                      if (formkey.currentState!.validate()) {
+                        authController.signUp(
                           nameController.text,
                           emailcontroller.text,
                           phone_numbercontroller.text,
                           Passwordcontroller.text,
                           context,
                         );
-
-                        if (response.statusCode == 200) {
-                          Fluttertoast.showToast(
-                              msg: "Sign Up Successful!",
-                              backgroundColor: Colors.green);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()),
-                          );
-                        } else {
-                          Fluttertoast.showToast(
-                              msg: response.body.contains('email')
-                                  ? "Wrong Email"
-                                  : "Wrong Password",
-                              backgroundColor: Colors.red);
-                        }
-                      } catch (e) {
-                        Fluttertoast.showToast(
-                            msg: "Error: $e", backgroundColor: Colors.red);
-                      } finally {
-                        setState(() {
-                          loading = false;
-                        });
                       }
-                    }
-                  },
-                ),
+                    }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
