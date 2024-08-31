@@ -95,4 +95,45 @@ class AuthController extends ChangeNotifier {
   }
 
 //
+
+  Future deleteAccount(int? userId) async {
+    loading = true;
+    notifyListeners();
+    var response = await http.post(
+        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.deleteAccountUrl}"),
+        body: {
+          "user_id": userId,
+        });
+    var jsonData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      ToastComponent.showDialogSuccess("${jsonData['message']}");
+    } else {
+      ToastComponent.showDialogSuccess("${jsonData['message']}");
+    }
+    loading = false;
+    notifyListeners();
+  }
+//
+
+  Future logout(int? userId) async {
+    loading = true;
+    notifyListeners();
+    var token = SharedPrefrenceData.getToken();
+    var response = await http.post(
+        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.logoutUrl}"),
+        headers: {
+          "Authorization": "Bearer $token"
+        },
+        body: {
+          "user_id": userId,
+        });
+    var jsonData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      ToastComponent.showDialogSuccess("${jsonData['message']}");
+    } else {
+      ToastComponent.showDialogSuccess("${jsonData['message']}");
+    }
+    loading = false;
+    notifyListeners();
+  }
 }

@@ -11,13 +11,12 @@ class ProductController extends ChangeNotifier{
 
 ProductModel? productModel;
 
-Future<ProductModel> getProducts()async{
+Future<ProductModel> getProducts({String? catId, String? subCatId})async{
   try{
   var response  =  await http.post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productUrl}"),
   body: {
-    "category_id":"5",
-    "sub_category_id":"4",
-    "show_on_home":"1",
+    "category_id":catId,
+    "sub_category_id":subCatId,
   }
   );
   log("MyProducts ==> ${response.body}");

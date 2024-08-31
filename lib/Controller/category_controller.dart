@@ -7,17 +7,15 @@ import 'package:service_app/Models/sub_category.dart';
 import '../Models/category.dart';
 
 class CategoryController extends ChangeNotifier {
+//
   CategoryModel? categoryModel;
   SubcategoryModel? subCategoryModel;
+//
 
-
-  Future<CategoryModel> fetchCategory() async {
+  Future<CategoryModel?> fetchCategory() async {
     try {
       var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.categoryUrl}"),
-        body: {
-          'show_on_home': '1',
-        },
       );
       log("myResponse ==> ${response.body}");
       var decodedData = jsonDecode(response.body);
@@ -25,7 +23,7 @@ class CategoryController extends ChangeNotifier {
       if (response.statusCode == 200) {
         categoryModel = CategoryModel.fromJson(decodedData);
         notifyListeners();
-        return categoryModel!;
+        return categoryModel;
       } else {
         return CategoryModel();
       }
@@ -34,13 +32,13 @@ class CategoryController extends ChangeNotifier {
       throw Exception("Failed to fetch category: $e");
     }
   }
+//
 
-  Future<SubcategoryModel> fetchSubCategory(String? catId) async {
+  Future<SubcategoryModel?> fetchSubCategory(String? catId) async {
     try {
       var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.subCategoryUrl}"),
         body: {
-          'show_on_home': '1',
           'category_id': catId,
         },
       );
@@ -61,6 +59,5 @@ class CategoryController extends ChangeNotifier {
       throw Exception("Failed to fetch subcategory: $e");
     }
   }
-
-
+//
 }
