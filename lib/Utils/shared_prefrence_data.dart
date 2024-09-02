@@ -26,7 +26,7 @@ class SharedPrefrenceData {
 //
   static getUserId() async {
     SharedPreferences prefes = await SharedPreferences.getInstance();
-    int? userId = prefes.getInt('user_id');
+    int userId =  prefes.getInt('user_id')!;
     return userId;
   }
   //

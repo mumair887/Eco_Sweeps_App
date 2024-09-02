@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:service_app/Auth/login_screen.dart';
 import 'package:service_app/Screens/bottom_nav/bottom_navbar.dart';
 import 'package:service_app/Constants/app_colors.dart';
 import 'package:service_app/splash_screen.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.white),
       routes: {
         'navbar': (context) => const BottomNavbar(),
+        '/login': (context)=> const LoginScreen(),
       },
       home: const SplashScreen(),
     );

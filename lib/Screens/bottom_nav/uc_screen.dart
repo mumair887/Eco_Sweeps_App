@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:service_app/Controller/auth_controller.dart';
 
 import 'package:service_app/Controller/category_controller.dart';
 
 import 'package:service_app/Screens/detailed_screens/cleaning_categories/cleaning_subcategory.dart';
+import 'package:service_app/Utils/shared_prefrence_data.dart';
 
 import 'package:service_app/Widgets/custom_textformfield.dart';
+import 'package:service_app/Widgets/round_button_widget.dart';
 
 import '../../Constants/App_colors.dart';
 
@@ -169,6 +172,32 @@ class _UcScreenState extends State<UcScreen> {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(''),
+        ),
+        drawer: Drawer(
+          backgroundColor: Colors.amber,
+          child: Column(
+            children: [
+              //
+              RoundButtonWidget(
+                  title: 'logout',
+                  onpress: () async {
+                    AuthController()
+                        .logout(await SharedPrefrenceData.getUserId());
+                  }),
+              const SizedBox(
+                height: 20,
+              ),
+              RoundButtonWidget(
+                  title: 'delete',
+                  onpress: () async {
+                    AuthController()
+                        .deleteAccount(await SharedPrefrenceData.getUserId(), context);
+                  })
+            ],
+          ),
+        ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: SingleChildScrollView(

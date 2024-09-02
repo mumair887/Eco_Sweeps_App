@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -28,6 +29,7 @@ class AuthController extends ChangeNotifier {
     });
     var myData = jsonDecode(response.body);
     if (response.statusCode == 200) {
+     await SharedPrefrenceData.setUserId(myData['id']);
       loading = false;
       notifyListeners();
       Navigator.pushReplacement(
@@ -54,9 +56,14 @@ class AuthController extends ChangeNotifier {
       "email": email,
       "password": password,
     });
+    log("loginRes ==>sponse.body${response.body}");
     var myJsonData = jsonDecode(response.body);
+    // ab delete wali krna hai? O
     if (response.statusCode == 200) {
-      SharedPrefrenceData.setToken(myJsonData['token']);
+      await SharedPrefrenceData.setToken(myJsonData['token']);
+      log("after token ${myJsonData['Data']['id']}");
+      await SharedPrefrenceData.setUserId(myJsonData['Data']
+          ['id']); // login kro or check kro id save ho rhi ha?
       loading = false;
       notifyListeners();
       Navigator.pushReplacement(
@@ -96,24 +103,27 @@ class AuthController extends ChangeNotifier {
 
 //
 
-  Future deleteAccount(int? userId) async {
+  Future deleteAccount(int userId, context) async {
     loading = true;
     notifyListeners();
     var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.deleteAccountUrl}"),
         body: {
-          "user_id": userId,
+          "user_id": "$userId",
         });
+    myToastContext.init(context);
     var jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     } else {
       ToastComponent.showDialogSuccess("${jsonData['message']}");
     }
+    // ho gai hai ab new account register kerna hoga? ok wait
     loading = false;
     notifyListeners();
   }
-//
+
 
   Future logout(int? userId) async {
     loading = true;
