@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Auth/otp_verification_screen.dart';
 import 'package:service_app/Constants/api_url.dart';
-import 'package:service_app/Screens/bottom_nav/uc_screen.dart';
+import 'package:service_app/Screens/Navigation/home_screen.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
 import 'package:service_app/Utils/toast_component.dart';
 import 'package:toast/toast.dart';

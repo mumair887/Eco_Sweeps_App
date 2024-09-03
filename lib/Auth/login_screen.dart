@@ -64,11 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Your Home Services here',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                SizedBox(height: height * 0.01),
-                const Text(
-                  'Quick * Affordable * Trusted',
-                  style: TextStyle(),
-                ),
+               
                 SizedBox(height: height * 0.04),
                 TextFormField(
                   controller: emailController,
