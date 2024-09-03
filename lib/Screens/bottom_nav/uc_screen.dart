@@ -175,29 +175,6 @@ class _UcScreenState extends State<UcScreen> {
         appBar: AppBar(
           title: const Text(''),
         ),
-        drawer: Drawer(
-          backgroundColor: Colors.amber,
-          child: Column(
-            children: [
-              //
-              RoundButtonWidget(
-                  title: 'logout',
-                  onpress: () async {
-                    AuthController()
-                        .logout(await SharedPrefrenceData.getUserId());
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              RoundButtonWidget(
-                  title: 'delete',
-                  onpress: () async {
-                    AuthController()
-                        .deleteAccount(await SharedPrefrenceData.getUserId(), context);
-                  })
-            ],
-          ),
-        ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: SingleChildScrollView(
@@ -245,7 +222,6 @@ class _UcScreenState extends State<UcScreen> {
                                 mainAxisSpacing: 10,
                                 crossAxisCount: 3),
                         itemBuilder: (context, index) {
-                          log('${snapshot.data!.data![index].name}');
                           return GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -253,8 +229,8 @@ class _UcScreenState extends State<UcScreen> {
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         CleaningSubcategoryScreen(
-                                            id: snapshot.data!.data![index].id
-                                                .toString()),
+                                      catId: snapshot.data!.data![index].id,
+                                    ),
                                   ));
                             },
                             child: Container(

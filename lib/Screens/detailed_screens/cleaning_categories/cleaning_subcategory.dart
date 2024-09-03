@@ -6,8 +6,8 @@ import '../../../Constants/App_colors.dart';
 import '../../../Models/sub_category.dart';
 
 class CleaningSubcategoryScreen extends StatefulWidget {
-  final String id;
-  const CleaningSubcategoryScreen({super.key, required this.id});
+  final int? catId;
+  const CleaningSubcategoryScreen({super.key, required this.catId});
 
   @override
   State<CleaningSubcategoryScreen> createState() =>
@@ -36,7 +36,7 @@ class _CleaningSubcategoryScreenState extends State<CleaningSubcategoryScreen> {
               Divider(thickness: 3, color: AppColors.lightGrey),
               SizedBox(height: height * 0.03),
               FutureBuilder(
-                future: categoryController.fetchSubCategory(widget.id),
+                future: categoryController.fetchSubCategory(widget.catId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -76,7 +76,8 @@ class _CleaningSubcategoryScreenState extends State<CleaningSubcategoryScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => LaundryDetailScreen(
-                      id: subCategory.data![index].id.toString(),
+                      categoryId: widget.catId,
+                      subcatId: subCategory.data![index].id,
                     )));
       },
       child: ContainerWidget(

@@ -21,15 +21,18 @@ class AuthController extends ChangeNotifier {
     loading = true;
     notifyListeners();
     var response = await http
-        .post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.signup}"), body: {
+        .post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.signup}"), headers: {
+      "Accept": "application/json",
+    }, body: {
       "name": name,
       "email": email,
       "phone_number": phoneNumber,
       "password": password,
     });
+    log("signup data ==> ${response.body}");
     var myData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-     await SharedPrefrenceData.setUserId(myData['id']);
+      await SharedPrefrenceData.setUserId(myData['id']);
       loading = false;
       notifyListeners();
       Navigator.pushReplacement(
@@ -58,16 +61,13 @@ class AuthController extends ChangeNotifier {
     });
     log("loginRes ==>sponse.body${response.body}");
     var myJsonData = jsonDecode(response.body);
-    // ab delete wali krna hai? O
     if (response.statusCode == 200) {
       await SharedPrefrenceData.setToken(myJsonData['token']);
       log("after token ${myJsonData['Data']['id']}");
-      await SharedPrefrenceData.setUserId(myJsonData['Data']
-          ['id']); // login kro or check kro id save ho rhi ha?
+      await SharedPrefrenceData.setUserId(myJsonData['Data']['id']);
       loading = false;
       notifyListeners();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const UcScreen()));
+      Navigator.pushNamedAndRemoveUntil(context, 'navbar', (route) => false);
       Get.snackbar('Eco Sweeps', 'Logged in sucessfully',
           backgroundColor: Colors.green);
     } else {
@@ -119,13 +119,12 @@ class AuthController extends ChangeNotifier {
     } else {
       ToastComponent.showDialogSuccess("${jsonData['message']}");
     }
-    // ho gai hai ab new account register kerna hoga? ok wait
     loading = false;
     notifyListeners();
   }
+//
 
-
-  Future logout(int? userId) async {
+  Future logout(int userId, context) async {
     loading = true;
     notifyListeners();
     var token = SharedPrefrenceData.getToken();
@@ -135,15 +134,18 @@ class AuthController extends ChangeNotifier {
           "Authorization": "Bearer $token"
         },
         body: {
-          "user_id": userId,
+          "user_id": "$userId",
         });
     var jsonData = jsonDecode(response.body);
+    myToastContext.init(context);
     if (response.statusCode == 200) {
       ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     } else {
       ToastComponent.showDialogSuccess("${jsonData['message']}");
     }
     loading = false;
     notifyListeners();
   }
+//
 }

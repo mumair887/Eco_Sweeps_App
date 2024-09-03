@@ -8,8 +8,10 @@ import 'package:service_app/Widgets/round_button_widget.dart';
 import '../../../Constants/App_colors.dart';
 
 class LaundryDetailScreen extends StatefulWidget {
-  final String id;
-  const LaundryDetailScreen({super.key, required this.id});
+  final int? categoryId;
+  final int? subcatId;
+  const LaundryDetailScreen(
+      {super.key, required this.categoryId, required this.subcatId});
 
   @override
   State<LaundryDetailScreen> createState() => _LaundryDetailScreenState();
@@ -20,13 +22,13 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
   List<bool> isAddedToCart = List.filled(6, false);
 
   int _count = 0;
-  void _increment() {
+  void increment() {
     setState(() {
       _count++;
     });
   }
 
-  void _decrement() {
+  void decrement() {
     setState(() {
       _count - 1;
     });
@@ -77,7 +79,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
               //------------------listview builder widget start---------------------///
 
               FutureBuilder(
-                  future: productController.getProducts(),
+                  future: productController.getProducts(
+                      catId: widget.categoryId, subCatId: widget.subcatId),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return const Center(
@@ -88,7 +91,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                       // height: height,
                       child: ListviewWidget(
                           scrollDirection: Axis.vertical,
-                          itemCount: snapshot.data!.category!.products!.length,
+                          itemCount:
+                              snapshot.data!.subCategory!.products!.length,
                           decoration: const BoxDecoration(),
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -621,7 +625,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                       // height: height,
                       child: ListviewWidget(
                           scrollDirection: Axis.vertical,
-                          itemCount: snapshot.data!.category!.products!.length,
+                          itemCount:
+                              snapshot.data!.subCategory!.products!.length,
                           decoration: const BoxDecoration(),
                           itemBuilder: (context, index) {
                             return InkWell(

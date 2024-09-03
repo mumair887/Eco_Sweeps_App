@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:service_app/Controller/auth_controller.dart';
 import 'package:service_app/Screens/setting_screen_details/manage_payment.dart';
 import 'package:service_app/Screens/setting_screen_details/mange_addresses.dart';
 import 'package:service_app/Screens/setting_screen_details/plus_membership.dart';
 import 'package:service_app/Screens/setting_screen_details/scheduled_screen.dart';
+import 'package:service_app/Utils/shared_prefrence_data.dart';
 
 import '../setting_screen_details/About_ecs.dart';
 import '../setting_screen_details/setting_screen.dart';
@@ -136,7 +138,11 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WalletScreen(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WalletScreen(),
+                      ));
                 },
                 child: Row(
                   children: [
@@ -165,7 +171,11 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const PlusMemebership(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PlusMemebership(),
+                      ));
                 },
                 child: Row(
                   children: [
@@ -220,7 +230,11 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageAddresses(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ManageAddresses(),
+                      ));
                 },
                 child: Row(
                   children: [
@@ -249,7 +263,11 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ManagePayment(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ManagePayment(),
+                      ));
                 },
                 child: Row(
                   children: [
@@ -278,7 +296,11 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingScreen(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingScreen(),
+                      ));
                 },
                 child: Row(
                   children: [
@@ -307,7 +329,11 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ScheduledScreen(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ScheduledScreen(),
+                      ));
                 },
                 child: Row(
                   children: [
@@ -336,7 +362,11 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutScreen(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutScreen(),
+                      ));
                 },
                 child: Row(
                   children: [
@@ -429,20 +459,26 @@ class _AccountScreenState extends State<AccountScreen> {
               SizedBox(
                 height: height * 0.03,
               ),
-              Container(
-                width: width * 0.35,
-                height: height * 0.05,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.white,
-                  border: Border.all(color: Colors.grey, width: 0.2),
+              InkWell(
+                onTap: () async {
+                  AuthController()
+                      .logout(await SharedPrefrenceData.getUserId(), context);
+                },
+                child: Container(
+                  width: width * 0.35,
+                  height: height * 0.05,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey, width: 0.2),
+                  ),
+                  child: const Center(
+                      child: Text(
+                    'Logout',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  )),
                 ),
-                child: const Center(
-                    child: Text(
-                  'Logout',
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-                )),
               ),
               SizedBox(
                 height: height * 0.02,

@@ -34,12 +34,12 @@ class CategoryController extends ChangeNotifier {
   }
 //
 
-  Future<SubcategoryModel?> fetchSubCategory(String? catId) async {
+  Future<SubcategoryModel?> fetchSubCategory(int? catId) async {
     try {
       var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.subCategoryUrl}"),
         body: {
-          'category_id': catId,
+          'category_id': "$catId",
         },
       );
       log("myResponse ==> ${response.body}");
