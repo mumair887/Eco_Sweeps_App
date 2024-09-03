@@ -6,6 +6,7 @@ import 'package:service_app/Widgets/listview_widget.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
 
 import '../../../Constants/App_colors.dart';
+import '../../add_to_cart_Screen/cart_screen.dart';
 
 class LaundryDetailScreen extends StatefulWidget {
   final int? categoryId;
@@ -312,8 +313,13 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                                       AppColors
                                                                           .lightgreen,
                                                                   title:
-                                                                      'Add for AED 130',
+                                                                      'Add  to Cart for AED 130',
                                                                   onpress: () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                const CartScreen()));
                                                                     ////---------------------payment botom sheet start----------------------------////
                                                                     showModalBottomSheet(
                                                                       context:
