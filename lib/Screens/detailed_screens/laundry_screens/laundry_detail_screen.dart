@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:service_app/Controller/product_controller.dart';
-import 'package:service_app/Screens/detailed_screens/bank&address_detail_screen/address_detail.dart';
 import 'package:service_app/Widgets/container_widget.dart';
 import 'package:service_app/Widgets/listview_widget.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
 
 import '../../../Constants/App_colors.dart';
+import '../../Address/address_detail.dart';
 import '../../add_to_cart_Screen/cart_screen.dart';
 
 class LaundryDetailScreen extends StatefulWidget {

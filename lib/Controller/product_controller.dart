@@ -13,6 +13,9 @@ class ProductController extends ChangeNotifier {
     try {
       var response = await http.post(
           Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productUrl}"),
+          headers: {
+            "accept": "application/json",
+          },
           body: {
             "category_id": "$catId",
             "sub_category_id": "$subCatId",
