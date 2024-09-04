@@ -464,20 +464,26 @@ class _AccountScreenState extends State<AccountScreen> {
                   AuthController()
                       .logout(await SharedPrefrenceData.getUserId(), context);
                 },
-                child: Container(
-                  width: width * 0.35,
-                  height: height * 0.05,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey, width: 0.2),
+                child: InkWell(
+                  onTap: () {
+
+                    ///---------------------------log out button-----------------////
+                  },
+                  child: Container(
+                    width: width * 0.35,
+                    height: height * 0.05,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey, width: 0.2),
+                    ),
+                    child: const Center(
+                        child: Text(
+                      'Logout',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    )),
                   ),
-                  child: const Center(
-                      child: Text(
-                    'Logout',
-                    style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold),
-                  )),
                 ),
               ),
               SizedBox(
