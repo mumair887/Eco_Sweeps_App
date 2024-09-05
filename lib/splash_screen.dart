@@ -22,8 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const SignUpScreen()));
       } else {
+
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const BottomNavbar()));
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const BottomNavbar()));
+
       }
     });
   }
