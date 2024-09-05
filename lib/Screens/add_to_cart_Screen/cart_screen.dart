@@ -1,24 +1,19 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:service_app/Controller/cart_controller.dart';
+import 'package:service_app/Screens/Address/address_detail.dart';
 import 'package:service_app/Widgets/custome_container/custom_container.dart';
 
-import '../../Constants/App_colors.dart';
+import '../../Constants/app_colors.dart';
 import '../../Widgets/container_widget.dart';
 import '../../Widgets/round_button_widget.dart';
-import '../Address/address_detail.dart';
 
 class CartScreen extends StatefulWidget {
-  int userId;
-  CartScreen({super.key, required this.userId});
+  const CartScreen({super.key});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-  CartController cartController = CartController();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -33,28 +28,16 @@ class _CartScreenState extends State<CartScreen> {
         child: Column(
           children: [
             Expanded(
-              child: FutureBuilder(
-                future: cartController.getViewMyCart(68),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data?.cartItems!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 15.0),
-                        child: CustomContainer(
-                          title: snapshot.data!.cartItems![index].productName
-                              .toString(),
-                          image: 'assets/w2.jpg', 
-                          price: snapshot.data!.cartItems![index].totalPrice
-                              .toString(), 
-                        ),
-                      );
-                    },
+              child: ListView.builder(
+                itemCount: 4, // Replace with your actual item count
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 15.0),
+                    child: CustomContainer(
+                      title: 'Soil 50 Liters', // Replace with dynamic data
+                      image: 'assets/w2.jpg', // Replace with dynamic data
+                      price: '300.00 AED', // Replace with dynamic data
+                    ),
                   );
                 },
               ),

@@ -1,4 +1,3 @@
-
 import 'package:service_app/Models/category.dart';
 
 class SubcategoryModel {
@@ -12,13 +11,13 @@ class SubcategoryModel {
     if (json['Data'] != null) {
       data = <Data>[];
       json['Data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (this.data != null) {
       data['Data'] = this.data!.map((v) => v.toJson()).toList();
@@ -56,12 +55,12 @@ class Data {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     category = json['category'] != null
-        ?  CategoryModel.fromJson(json['category'])
+        ? CategoryModel.fromJson(json['category'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['category_id'] = categoryId;
     data['name'] = name;

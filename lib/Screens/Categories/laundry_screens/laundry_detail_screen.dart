@@ -319,100 +319,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                                         context,
                                                                         MaterialPageRoute(
                                                                             builder: (context) =>
-                                                                                const CartScreen()));
+                                                                                CartScreen(userId: 72)));
                                                                     ////---------------------payment botom sheet start----------------------------////
-                                                                    showModalBottomSheet(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (context) {
-                                                                        return ContainerWidget(
-                                                                          height:
-                                                                              height * .5,
-                                                                          width:
-                                                                              width,
-                                                                          decoration:
-                                                                              const BoxDecoration(),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              const Text(
-                                                                                'Payment Summary',
-                                                                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                                                              ),
-                                                                              const Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text(' payment:'),
-                                                                                  Text('Rs. 100')
-                                                                                ],
-                                                                              ),
-                                                                              const Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text(' Fee:'),
-                                                                                  Text('Rs. 30')
-                                                                                ],
-                                                                              ),
-                                                                              SizedBox(
-                                                                                height: height * 0.02,
-                                                                              ),
-                                                                              Divider(thickness: 3, color: AppColors.lightGrey),
-                                                                              const Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text('Total payable:'),
-                                                                                  Text('Rs. 130')
-                                                                                ],
-                                                                              ),
-                                                                              SizedBox(
-                                                                                height: height * 0.04,
-                                                                              ),
-                                                                              const Text(
-                                                                                'Pay via:',
-                                                                                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                height: height * 0.01,
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                children: [
-                                                                                  Container(
-                                                                                    height: height * 0.09,
-                                                                                    width: width * 0.22,
-                                                                                    decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/meezan.jpg'), fit: BoxFit.cover), borderRadius: BorderRadius.circular(10)),
-                                                                                  ),
-                                                                                  Container(
-                                                                                    height: height * 0.09,
-                                                                                    width: width * 0.22,
-                                                                                    decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/dub bank.jpg'), fit: BoxFit.cover), borderRadius: BorderRadius.circular(10)),
-                                                                                  ),
-                                                                                  Container(
-                                                                                    height: height * 0.09,
-                                                                                    width: width * 0.22,
-                                                                                    decoration: BoxDecoration(image: const DecorationImage(image: AssetImage('assets/jazz.png'), fit: BoxFit.cover), borderRadius: BorderRadius.circular(10)),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              SizedBox(
-                                                                                height: height * 0.05,
-                                                                              ),
-                                                                              RoundButtonWidget(
-                                                                                title: 'CheckOut',
-                                                                                onpress: () {
-                                                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const BookAddressDetail()));
-                                                                                },
-                                                                                buttonColor: AppColors.lightgreen,
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                    );
                                                                   }),
                                                         )
                                                       ],
@@ -619,7 +527,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
 
               //------------------listview builder widget start---------------------///
 
-              
               ///-----------------------------Bag - wash& fold  end-----------------------------------///
 
               ContainerWidget(
@@ -643,9 +550,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                 height: height * 0.02,
               ),
               Divider(thickness: 2, color: AppColors.lightGrey),
-
-
-             
             ],
           ),
         ),

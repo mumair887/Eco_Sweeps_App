@@ -34,44 +34,39 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: categoryController.subCategoryModel == null
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Divider(thickness: 3, color: AppColors.lightGrey),
-                    SizedBox(height: height * 0.03),
-                    FutureBuilder(
-                      future: categoryController.fetchSubCategory(widget.catId),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.data!.isEmpty) {
-                          return const Center(child: Text('No data available'));
-                        }
-                        return ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: snapshot.data!.data!.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return buildSubCategoryItem(
-                                context, index, snapshot.data!);
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Divider(thickness: 3, color: AppColors.lightGrey),
+              SizedBox(height: height * 0.03),
+              FutureBuilder(
+                future: categoryController.fetchSubCategory(widget.catId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData ||
+                      snapshot.data!.data!.isEmpty) {
+                    return const Center(child: Text('No data available'));
+                  }
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.data!.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return buildSubCategoryItem(
+                          context, index, snapshot.data!);
+                    },
+                  );
+                },
               ),
-            ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
