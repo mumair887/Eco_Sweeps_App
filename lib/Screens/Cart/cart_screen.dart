@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Widgets/custome_container/custom_container.dart';
@@ -10,8 +8,7 @@ import '../../Widgets/round_button_widget.dart';
 import '../Address/address_detail.dart';
 
 class CartScreen extends StatefulWidget {
-  int userId;
-  CartScreen({super.key, required this.userId});
+  CartScreen({super.key});
 
   @override
   State<CartScreen> createState() => _CartScreenState();

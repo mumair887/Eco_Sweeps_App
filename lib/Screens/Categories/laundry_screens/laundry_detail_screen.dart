@@ -319,7 +319,7 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                                         context,
                                                                         MaterialPageRoute(
                                                                             builder: (context) =>
-                                                                                CartScreen(userId: 72)));
+                                                                                CartScreen()));
                                                                     ////---------------------payment botom sheet start----------------------------////
                                                                   }),
                                                         )

@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final Color? bordercolor;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
+  final Function(String?)? onSaved;
   final TextEditingController? controller;
 
   const CustomTextFormField({
@@ -18,13 +19,15 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.bordercolor,
-    this.controller
+    this.controller,
+    this.onSaved,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      onSaved: onSaved,
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
