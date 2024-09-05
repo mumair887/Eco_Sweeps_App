@@ -21,4 +21,9 @@ class APIREQUEST {
   static const getViewCart = "/cart";
   static const updateCart = "/update-cart";
   static const getDeleteCart = "/delete-cart";
+
+//Addresses
+ static const postAddress = "/address-store";
+ static const getAddress = "/address";
+
 }
