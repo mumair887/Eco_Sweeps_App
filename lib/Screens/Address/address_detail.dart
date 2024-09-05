@@ -32,7 +32,6 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
   bool isopen = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Example fields
   String? userId;
   String? latitude;
   String? longitude;
