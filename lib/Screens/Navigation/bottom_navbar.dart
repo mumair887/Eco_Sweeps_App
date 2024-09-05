@@ -17,7 +17,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   List screens = [
     const UcScreen(),
     const BookingScreen(),
-    const RewardsScreen(),
+    // const RewardsScreen(),
     // const NativeScreen(),
     const AccountScreen(),
   ];
@@ -39,7 +39,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'UC'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.edit_document), label: 'Bookings'),
-            BottomNavigationBarItem(icon: Icon(Icons.wallet), label: 'Rewards'),
+            // BottomNavigationBarItem(icon: Icon(Icons.wallet), label: 'Rewards'),
             // BottomNavigationBarItem(icon: Icon(Icons.house), label: 'Native'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
           ]),
