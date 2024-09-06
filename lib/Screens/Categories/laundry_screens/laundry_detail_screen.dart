@@ -10,8 +10,12 @@ import '../../Cart/cart_screen.dart';
 class LaundryDetailScreen extends StatefulWidget {
   final int? categoryId;
   final int? subcatId;
+  final String? name;
   const LaundryDetailScreen(
-      {super.key, required this.categoryId, required this.subcatId});
+      {super.key,
+      required this.categoryId,
+      required this.subcatId,
+      required this.name});
 
   @override
   State<LaundryDetailScreen> createState() => _LaundryDetailScreenState();
@@ -48,31 +52,16 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Text(
-                'Laundry',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Text(
+                widget.name!,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               Divider(thickness: 2, color: AppColors.lightGrey),
               SizedBox(
                 height: height * 0.02,
               ),
-              ContainerWidget(
-                height: height * 0.05,
-                width: width,
-                decoration: BoxDecoration(
-                    color: AppColors.lightGrey,
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 10, top: 6),
-                  child: Text(
-                    'Best Seller',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+
               SizedBox(
                 height: height * 0.02,
               ),
@@ -90,7 +79,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                       );
                     }
                     return SizedBox(
-                      // height: height,
                       child: ListviewWidget(
                           scrollDirection: Axis.vertical,
                           itemCount:
@@ -100,7 +88,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                             return InkWell(
                               onTap: () {
                                 //---------------------------details bottom modal sheet start-----------------------////
-
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   context: context,
@@ -507,55 +494,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                           }),
                     );
                   }),
-
-              ///--------------------------Best seller end--------------------///
-              ContainerWidget(
-                height: height * 0.05,
-                width: width,
-                decoration: BoxDecoration(
-                    color: AppColors.lightGrey,
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 10, top: 6),
-                  child: Text(
-                    'Bag - Wash & fold',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Divider(thickness: 2, color: AppColors.lightGrey),
-
-              //------------------listview builder widget start---------------------///
-
-              ///-----------------------------Bag - wash& fold  end-----------------------------------///
-
-              ContainerWidget(
-                height: height * 0.05,
-                width: width,
-                decoration: BoxDecoration(
-                    color: AppColors.lightGrey,
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 10, top: 6),
-                  child: Text(
-                    'Bag - Wash & Iron',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Divider(thickness: 2, color: AppColors.lightGrey),
             ],
           ),
         ),

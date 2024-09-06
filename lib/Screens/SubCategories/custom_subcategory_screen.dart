@@ -83,6 +83,7 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
                 builder: (context) => LaundryDetailScreen(
                       categoryId: widget.catId,
                       subcatId: subCategory.data![index].id,
+                      name: subCategory.data![index].name,
                     )));
       },
       child: ContainerWidget(
