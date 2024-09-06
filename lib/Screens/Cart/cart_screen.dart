@@ -7,15 +7,12 @@ import '../../Widgets/round_button_widget.dart';
 import '../Address/address_detail.dart';
 
 class CartScreen extends StatefulWidget {
-<<<<<<< HEAD
-  CartScreen({super.key});
-=======
   const CartScreen({super.key});
 
->>>>>>> Muhammad_Younis
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
+
 class _CartScreenState extends State<CartScreen> {
   CartController cartController = CartController();
   @override
@@ -47,9 +44,9 @@ class _CartScreenState extends State<CartScreen> {
                         child: CustomContainer(
                           title: snapshot.data!.cartItems![index].productName
                               .toString(),
-                          image: 'assets/w2.jpg', 
+                          image: 'assets/w2.jpg',
                           price: snapshot.data!.cartItems![index].totalPrice
-                              .toString(), 
+                              .toString(),
                         ),
                       );
                     },
