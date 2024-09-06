@@ -26,9 +26,10 @@ class SharedPrefrenceData {
 //
   static getUserId() async {
     SharedPreferences prefes = await SharedPreferences.getInstance();
-    int userId =  prefes.getInt('user_id')!;
+    int userId = prefes.getInt('user_id')!;
     return userId;
   }
+
 
   
   static setproId(int product_id) async {
@@ -42,5 +43,5 @@ class SharedPrefrenceData {
     int product_id=  prefes.getInt('product_id')!;
     return product_id;
   }
-  //
+
 }
