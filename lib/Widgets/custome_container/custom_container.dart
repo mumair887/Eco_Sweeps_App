@@ -60,21 +60,20 @@ class CustomContainer extends StatelessWidget {
                 ),
               ],
             ),
-            const Spacer(),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Icon(
-                    Icons.delete,
+                  IconButton(
+                    onPressed: () {
+                      
+                    },
+                    icon: const Icon(Icons.delete),
                     color: Colors.red,
                   )
                 ],
               ),
-            ),
-            SizedBox(
-              width: width * 0.02,
             ),
             const ActionButton(),
           ],

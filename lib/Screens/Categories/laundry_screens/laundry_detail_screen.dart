@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:service_app/Controller/product_controller.dart';
-import 'package:service_app/Screens/Address/address_detail.dart';
 import 'package:service_app/Widgets/container_widget.dart';
 import 'package:service_app/Widgets/listview_widget.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
@@ -31,7 +30,9 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
 
   void decrement() {
     setState(() {
-      _count - 1;
+      if (_count > 0) {
+        _count--;
+      }
     });
   }
 
@@ -258,7 +259,10 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                                       () {
                                                                     setModalState(
                                                                         () {
-                                                                      _count--;
+                                                                      if (_count >
+                                                                          0) {
+                                                                        _count--;
+                                                                      }
                                                                     });
                                                                   },
                                                                 ),
@@ -403,6 +407,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                             }
                                                           });
                                                         },
+                                                       
+                                                       
                                                         child: Container(
                                                           height:
                                                               height * 0.030,
