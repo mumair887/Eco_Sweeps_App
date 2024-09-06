@@ -7,12 +7,10 @@ import '../../Widgets/round_button_widget.dart';
 import '../Address/address_detail.dart';
 
 class CartScreen extends StatefulWidget {
-<<<<<<< HEAD
-  CartScreen({super.key});
-=======
+
+
   const CartScreen({super.key});
 
->>>>>>> Muhammad_Younis
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
