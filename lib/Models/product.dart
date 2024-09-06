@@ -8,21 +8,21 @@ class ProductModel {
   ProductModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     category = json['category'] != null
-        ? new Category.fromJson(json['category'])
+        ? Category.fromJson(json['category'])
         : null;
     subCategory = json['sub_category'] != null
-        ? new Category.fromJson(json['sub_category'])
+        ? Category.fromJson(json['sub_category'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.category != null) {
-      data['category'] = this.category!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (category != null) {
+      data['category'] = category!.toJson();
     }
-    if (this.subCategory != null) {
-      data['sub_category'] = this.subCategory!.toJson();
+    if (subCategory != null) {
+      data['sub_category'] = subCategory!.toJson();
     }
     return data;
   }
@@ -41,17 +41,17 @@ class Category {
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
+        products!.add(Products.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    if (this.products != null) {
-      data['products'] = this.products!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    if (products != null) {
+      data['products'] = products!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -98,18 +98,18 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['category_id'] = this.categoryId;
-    data['sub_category_id'] = this.subCategoryId;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['amount'] = this.amount;
-    data['detail'] = this.detail;
-    data['image'] = this.image;
-    data['show_on_home'] = this.showOnHome;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['category_id'] = categoryId;
+    data['sub_category_id'] = subCategoryId;
+    data['name'] = name;
+    data['description'] = description;
+    data['amount'] = amount;
+    data['detail'] = detail;
+    data['image'] = image;
+    data['show_on_home'] = showOnHome;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

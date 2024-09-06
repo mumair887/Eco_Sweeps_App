@@ -2,6 +2,9 @@ class CategoryModel {
   int? status;
   List<Data>? data;
 
+
+
+
   CategoryModel({this.status, this.data});
 
   CategoryModel.fromJson(Map<String, dynamic> json) {

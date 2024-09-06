@@ -29,7 +29,7 @@ class UpdateCartModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['message'] = _message;
     if (_cart != null) {
       data['cart'] = _cart!.toJson();
@@ -105,7 +105,7 @@ class Cart {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = _id;
     data['user_id'] = _userId;
     data['product_id'] = _productId;

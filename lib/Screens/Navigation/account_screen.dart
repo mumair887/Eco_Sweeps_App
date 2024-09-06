@@ -470,10 +470,12 @@ class _AccountScreenState extends State<AccountScreen> {
               InkWell(
                 onTap: () async {
                   AuthController()
+                      // ignore: use_build_context_synchronously
                       .logout(await SharedPrefrenceData.getUserId(), context);
                 },
                 child: InkWell(
                   onTap: () {
+
                     ///---------------------------log out button-----------------////
                   },
                   child: Container(
