@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:service_app/Auth/signup_screen.dart';
 import 'package:service_app/Screens/Navigation/bottom_navbar.dart';
-import 'package:service_app/Screens/Navigation/home_screen.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
 
 class SplashScreen extends StatefulWidget {
