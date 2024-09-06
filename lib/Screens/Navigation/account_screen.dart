@@ -4,6 +4,7 @@ import 'package:service_app/Screens/Settings/manage_payment.dart';
 import 'package:service_app/Screens/Settings/mange_addresses.dart';
 import 'package:service_app/Screens/Settings/plus_membership.dart';
 import 'package:service_app/Screens/Settings/scheduled_screen.dart';
+import 'package:service_app/Screens/Settings/update_profile.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
 
 import '../Settings/About_ecs.dart';
@@ -31,9 +32,9 @@ class _AccountScreenState extends State<AccountScreen> {
           padding: const EdgeInsets.all(15.0),
           child: ListView(
             children: [
-              const Row(
+              Row(
                 children: [
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -44,8 +45,15 @@ class _AccountScreenState extends State<AccountScreen> {
                       Text('+966 559218735'),
                     ],
                   ),
-                  Spacer(),
-                  Icon(Icons.edit_outlined),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const UpdateProfile()));
+                      },
+                      icon: const Icon(Icons.edit_outlined)),
                 ],
               ),
               SizedBox(
@@ -462,6 +470,7 @@ class _AccountScreenState extends State<AccountScreen> {
               InkWell(
                 onTap: () async {
                   AuthController()
+                      // ignore: use_build_context_synchronously
                       .logout(await SharedPrefrenceData.getUserId(), context);
                 },
                 child: InkWell(

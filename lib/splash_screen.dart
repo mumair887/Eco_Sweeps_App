@@ -15,15 +15,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () async {
-      if (await SharedPrefrenceData.getToken() == null) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const SignUpScreen()));
-      } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const BottomNavbar()));
-      }
-    });
+    Timer(
+      const Duration(seconds: 3),
+      () async {
+        if (await SharedPrefrenceData.getToken() == null) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const SignUpScreen()));
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const BottomNavbar(),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -31,20 +38,21 @@ class _SplashScreenState extends State<SplashScreen> {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
-        backgroundColor: const Color(0xff7db901),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: Image.asset(
-                'assets/logo.jpg',
-                fit: BoxFit.cover,
-                height: height * .3,
-                width: width * .6,
-              ),
+      backgroundColor: const Color(0xff7db901),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(
+              'assets/logo.jpg',
+              fit: BoxFit.cover,
+              height: height * .3,
+              width: width * .6,
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

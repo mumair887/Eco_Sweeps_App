@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Widgets/custome_container/custom_container.dart';
-
 import '../../Constants/App_colors.dart';
 import '../../Widgets/container_widget.dart';
 import '../../Widgets/round_button_widget.dart';
 import '../Address/address_detail.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({super.key});
+
+  const CartScreen({super.key});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -20,7 +20,6 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shopping Cart'),
@@ -46,9 +45,9 @@ class _CartScreenState extends State<CartScreen> {
                         child: CustomContainer(
                           title: snapshot.data!.cartItems![index].productName
                               .toString(),
-                          image: 'assets/w2.jpg', 
+                          image: 'assets/w2.jpg',
                           price: snapshot.data!.cartItems![index].totalPrice
-                              .toString(), 
+                              .toString(),
                         ),
                       );
                     },

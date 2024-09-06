@@ -34,7 +34,9 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
 
   void decrement() {
     setState(() {
-      _count - 1;
+      if (_count > 0) {
+        _count--;
+      }
     });
   }
 
@@ -244,7 +246,10 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                                       () {
                                                                     setModalState(
                                                                         () {
-                                                                      _count--;
+                                                                      if (_count >
+                                                                          0) {
+                                                                        _count--;
+                                                                      }
                                                                     });
                                                                   },
                                                                 ),
@@ -389,6 +394,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                             }
                                                           });
                                                         },
+                                                       
+                                                       
                                                         child: Container(
                                                           height:
                                                               height * 0.030,
