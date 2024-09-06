@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:service_app/Controller/cart_controller.dart';
+import 'package:service_app/Utils/shared_prefrence_data.dart';
 import '../action_button.dart/action_button.dart';
 
 class CustomContainer extends StatelessWidget {
@@ -6,13 +8,14 @@ class CustomContainer extends StatelessWidget {
   final String image;
   final String price;
 
-  const CustomContainer({
+   CustomContainer({
     super.key,
     required this.title,
     required this.image,
     required this.price,
   });
 
+  CartController cartController=CartController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -66,8 +69,8 @@ class CustomContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                    onPressed: () {
-                      
+                    onPressed: () async{
+                      cartController.deleteCart(await SharedPrefrenceData.getproId());
                     },
                     icon: const Icon(Icons.delete),
                     color: Colors.red,
