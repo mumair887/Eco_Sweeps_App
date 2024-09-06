@@ -10,19 +10,19 @@ class ViewCartModel {
     if (json['cart_items'] != null) {
       cartItems = <CartItems>[];
       json['cart_items'].forEach((v) {
-        cartItems!.add(new CartItems.fromJson(v));
+        cartItems!.add(CartItems.fromJson(v));
       });
     }
     totalPrice = json['total_price'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.cartItems != null) {
-      data['cart_items'] = this.cartItems!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (cartItems != null) {
+      data['cart_items'] = cartItems!.map((v) => v.toJson()).toList();
     }
-    data['total_price'] = this.totalPrice;
+    data['total_price'] = totalPrice;
     return data;
   }
 }
@@ -31,7 +31,7 @@ class CartItems {
   int? productId;
   String? productName;
   String? quantity;
-  Null? pricePerUnit;
+  Null pricePerUnit;
   int? totalPrice;
 
   CartItems(
@@ -50,12 +50,12 @@ class CartItems {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['product_id'] = this.productId;
-    data['product_name'] = this.productName;
-    data['quantity'] = this.quantity;
-    data['price_per_unit'] = this.pricePerUnit;
-    data['total_price'] = this.totalPrice;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['product_id'] = productId;
+    data['product_name'] = productName;
+    data['quantity'] = quantity;
+    data['price_per_unit'] = pricePerUnit;
+    data['total_price'] = totalPrice;
     return data;
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:service_app/Widgets/container_widget.dart';
 
 class CustomColumnWidget extends StatelessWidget {
-  CustomColumnWidget({super.key});
+  const CustomColumnWidget({super.key});
   
 
   @override
