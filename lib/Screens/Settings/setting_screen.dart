@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:service_app/Controller/auth_controller.dart';
 import 'package:service_app/Controller/delete_account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,7 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
             InkWell(
               onTap: () async {
                 int userid = await SharedPrefrenceData.getUserId();
-                deleteAccount(userid, context);
+                AuthController().deleteAccount(userid, context);
               },
               child: Row(
                 children: [
