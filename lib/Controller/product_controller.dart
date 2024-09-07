@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Constants/api_url.dart';
 import 'package:service_app/Models/product.dart';
+import 'package:service_app/Models/product_details.dart';
 import 'package:service_app/Utils/toast_component.dart';
 
 class ProductController extends ChangeNotifier {
+//
   ProductModel? productModel;
+  ProductDetailsModel? productDetail;
 
+//
   Future<ProductModel> getProducts({int? catId, int? subCatId}) async {
     try {
       var response = await http.post(
@@ -29,8 +33,34 @@ class ProductController extends ChangeNotifier {
         return ProductModel();
       }
     } catch (e) {
-      ToastComponent.showDialogError("");
+      ToastComponent.showDialogError("$e");
       return ProductModel();
     }
   }
+//
+
+  Future<ProductDetailsModel> getProductDetails(int productId) async {
+    try {
+      var response = await http.post(
+          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productUrl}"),
+          headers: {
+            "accept": "application/json",
+          },
+          body: {
+            "product_id": "$productId",
+          });
+      log("MyProducts ==> ${response.body}");
+      var myJsonData = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        productModel = ProductModel.fromJson(myJsonData);
+        return productDetail!;
+      } else {
+        return ProductDetailsModel();
+      }
+    } catch (e) {
+      ToastComponent.showDialogError("$e");
+      return ProductDetailsModel();
+    }
+  }
+//
 }
