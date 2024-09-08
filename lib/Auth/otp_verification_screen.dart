@@ -32,7 +32,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Text('Please enter the 4-digit code sent on E-mail'),
+              const Text('Please enter the 6-digit code sent on E-mail'),
               const SizedBox(height: 10),
               SizedBox(height: height * 0.02),
               OTPTextField(

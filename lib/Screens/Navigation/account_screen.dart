@@ -6,7 +6,6 @@ import 'package:service_app/Screens/Settings/plus_membership.dart';
 import 'package:service_app/Screens/Settings/scheduled_screen.dart';
 import 'package:service_app/Screens/Settings/update_profile.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
-
 import '../Settings/About_ecs.dart';
 import '../Settings/setting_screen.dart';
 import '../Settings/wallet_screen.dart';
@@ -472,27 +471,23 @@ class _AccountScreenState extends State<AccountScreen> {
                   AuthController()
                       // ignore: use_build_context_synchronously
                       .logout(await SharedPrefrenceData.getUserId(), context);
-                },
-                child: InkWell(
-                  onTap: () {
 
-                    ///---------------------------log out button-----------------////
-                  },
-                  child: Container(
-                    width: width * 0.35,
-                    height: height * 0.05,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey, width: 0.2),
-                    ),
-                    child: const Center(
-                        child: Text(
-                      'Logout',
-                      style: TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.bold),
-                    )),
+                  ///---------------------------log out button-----------------////
+                },
+                child: Container(
+                  width: width * 0.35,
+                  height: height * 0.05,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey, width: 0.2),
                   ),
+                  child: const Center(
+                      child: Text(
+                    'Logout',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  )),
                 ),
               ),
               SizedBox(
