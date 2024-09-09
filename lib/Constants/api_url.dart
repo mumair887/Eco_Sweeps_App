@@ -25,5 +25,8 @@ class APIREQUEST {
 //Addresses
  static const postAddress = "/address-store";
  static const getAddress = "/address";
+ //search api 
+ static const searchapi="/search";
+  
 
 }
