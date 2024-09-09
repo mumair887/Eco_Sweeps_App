@@ -61,12 +61,7 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
               SizedBox(
                 height: height * 0.02,
               ),
-
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Divider(thickness: 2, color: AppColors.lightGrey),
-
+              
               //------------------listview builder widget start---------------------///
 
               FutureBuilder(
@@ -87,7 +82,7 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
-                                //---------------------------details bottom modal sheet start-----------------------////
+                                //---------------------------details bottom modal sheet start-----------------------///
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   context: context,
@@ -99,6 +94,9 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                           height: height * 0.85,
                                           width: width,
                                           decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                topRight: Radius.circular(20)),
                                             color: Colors.white,
                                           ),
                                           child: SingleChildScrollView(
@@ -113,14 +111,20 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                   Container(
                                                     height: height * 0.19,
                                                     width: width,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: AssetImage(
-                                                              'assets/homeserv.jpg'),
-                                                          fit: BoxFit.cover),
-                                                      color: Colors.black,
-                                                    ),
+                                                    decoration: const BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: AssetImage(
+                                                                'assets/homeserv.jpg'),
+                                                            fit: BoxFit.cover),
+                                                        color: Colors.black,
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        20),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        20))),
                                                   ),
                                                   const SizedBox(height: 16),
                                                   const Text(
@@ -311,7 +315,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                                         MaterialPageRoute(
                                                                             builder: (context) =>
                                                                                 CartScreen()));
-                                                                    ////---------------------payment botom sheet start----------------------------////
                                                                   }),
                                                         )
                                                       ],
@@ -373,6 +376,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                               height: height * 0.04,
                                             ),
                                             Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(snapshot.data!.category!
                                                     .products![index].amount
@@ -394,8 +399,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                             }
                                                           });
                                                         },
-                                                       
-                                                       
                                                         child: Container(
                                                           height:
                                                               height * 0.030,
