@@ -23,8 +23,12 @@ class APIREQUEST {
   static const getDeleteCart = "/delete-cart";
 
 //Addresses
-  static const postAddress = "/address-store";
-  static const getAddress = "/address";
+
+ static const postAddress = "/address-store";
+ static const getAddress = "/address";
+ //search api 
+ static const searchapi="/search";
+  
 
 //profile
   static const editprofile = "/edit-profile";

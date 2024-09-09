@@ -3,6 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:service_app/Controller/auth_controller.dart';
 import '../../Utils/shared_prefrence_data.dart';
 
+import '../../Utils/shared_prefrence_data.dart';
+
+
+
+
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
@@ -11,6 +16,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  // ignore: non_constant_identifier_names
   bool switch_value = false;
   @override
   Widget build(BuildContext context) {

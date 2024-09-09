@@ -1,6 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:service_app/Constants/App_colors.dart';
 
+// ignore: must_be_immutable
 class CustomTextFormField extends StatelessWidget {
   final String? hintText;
   final String? labelText;
@@ -9,18 +12,23 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final Function(String?)? onSaved;
+  Function(String)? onFieldSubmitted;
   final TextEditingController? controller;
 
-  const CustomTextFormField({
+  Function(String)? onChanged;
+
+  CustomTextFormField({
     super.key,
-    this.color,
     this.hintText,
     this.labelText,
+    this.color,
+    this.bordercolor,
     this.prefixIcon,
     this.suffixIcon,
-    this.bordercolor,
-    this.controller,
     this.onSaved,
+    this.controller,
+    this.onChanged,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -28,6 +36,8 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       onSaved: onSaved,
+      onFieldSubmitted: onFieldSubmitted,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
