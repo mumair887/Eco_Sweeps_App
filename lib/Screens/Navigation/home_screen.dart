@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:service_app/Controller/category_controller.dart';
+import 'package:service_app/Models/search_model.dart';
 import 'package:service_app/Screens/SubCategories/custom_subcategory_screen.dart';
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import '../../Constants/app_colors.dart';
@@ -16,8 +17,8 @@ class UcScreen extends StatefulWidget {
 class _UcScreenState extends State<UcScreen> {
   TextEditingController searchController = TextEditingController();
 
+  SearchModel searchResults = SearchModel();
   bool isLoading = false;
-  final TextEditingController searchTextController = TextEditingController();
   CategoryController categoryController = CategoryController();
   SearchProductsApi searchProduct = SearchProductsApi();
   List maintain = [
@@ -89,7 +90,6 @@ class _UcScreenState extends State<UcScreen> {
     'assets/w6.jpg',
     'assets/w1.jpg',
   ];
-
   List wo = [
     'assets/physio.jpg',
     'assets/nurse.jpg',
@@ -131,7 +131,6 @@ class _UcScreenState extends State<UcScreen> {
     'assets/rent p.png',
     'assets/kids.jpg'
   ];
-
   final List<String> crouselpics = [
     'assets/first.jpg',
     'assets/second.jpg',
@@ -170,257 +169,279 @@ class _UcScreenState extends State<UcScreen> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SafeArea(
-                child: Column(
-                  children: [
-                    // Location, Cart section
-                    ListTile(
-                      title: const Text(
-                        'Multan',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: const Text('Sabzazar Colony-Multan-Pakistan'),
-                      trailing: CircleAvatar(
-                        backgroundColor: AppColors
-                            .lightGrey, // Use AppColors.lightgreen here
-                        child: const Icon(Icons.shopping_cart_outlined),
-                      ),
-                    ),
-                    SizedBox(height: height * 0.02),
-
-                    // Search bar
-                    CustomTextFormField(
-                      controller: searchController,
-                      hintText: 'Look for services',
-                      bordercolor: AppColors.black,
-                      prefixIcon: Icons.search,
-                      onFieldSubmitted: (p0) {
-                        searchProduct.search(p0);
-                      },
-                    ),
-
-                    SizedBox(height: height * 0.02),
-
-                    // First services section
-                    FutureBuilder(
-                      future: categoryController.fetchCategory(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        return GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: snapshot.data!.data!.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisSpacing: 10,
-                            mainAxisExtent: 130,
-                            mainAxisSpacing: 10,
-                            crossAxisCount: 3,
-                          ),
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        CustomSubCategoryScreen(
-                                      catId: snapshot.data!.data![index].id,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                height: height * 0.15,
-                                width: width * .40,
-                                decoration: const BoxDecoration(),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: height * 0.10,
-                                      width: width * .27,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.black),
-                                        color: Colors.grey[
-                                            200], // Use AppColors.lightGrey
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            snapshot.data!.data![index].image
-                                                .toString(),
-                                          ),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      snapshot.data!.data![index].name
-                                          .toString(),
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13,
-                                      ),
-                                    )
-                                  ],
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : searchResults == null
+              ? const Center(
+                  child: Text('No search results'),
+                )
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SafeArea(
+                          child: Column(
+                            children: [
+                              // Location, Cart section
+                              ListTile(
+                                title: const Text(
+                                  'Multan',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: const Text(
+                                    'Sabzazar Colony-Multan-Pakistan'),
+                                trailing: CircleAvatar(
+                                  backgroundColor: AppColors
+                                      .lightGrey, // Use AppColors.lightgreen here
+                                  child:
+                                      const Icon(Icons.shopping_cart_outlined),
                                 ),
                               ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                              SizedBox(height: height * 0.02),
 
-                    Divider(
-                        thickness: 5,
-                        color: AppColors.lightGrey), // Use AppColors.lightGrey
+                              // Search bar
+                              CustomTextFormField(
+                                controller: searchController,
+                                hintText: 'Look for services',
+                                bordercolor: AppColors.black,
+                                prefixIcon: Icons.search,
+                                onFieldSubmitted: (v) {
+                                  searchProduct.search(v);
+                                },
+                                onChanged: (p0) {
+                                  searchProduct.search(p0);
+                                },
+                              ),
 
-                    // Carousel slider section
-                    CarouselSlider(
-                      items: crouselpics.map((item) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(image: AssetImage(item)),
+                              SizedBox(height: height * 0.02),
+
+                              // First services section
+                              FutureBuilder(
+                                future: categoryController.fetchCategory(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+
+                                  return GridView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: snapshot.data!.data!.length,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisSpacing: 10,
+                                      mainAxisExtent: 130,
+                                      mainAxisSpacing: 10,
+                                      crossAxisCount: 3,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CustomSubCategoryScreen(
+                                                catId: snapshot
+                                                    .data!.data![index].id,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          height: height * 0.15,
+                                          width: width * .40,
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height: height * 0.10,
+                                                width: width * .27,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.black),
+                                                  color: Colors.grey[
+                                                      200], // Use AppColors.lightGrey
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                      snapshot.data!
+                                                          .data![index].image
+                                                          .toString(),
+                                                    ),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                snapshot.data!.data![index].name
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+
+                              Divider(
+                                  thickness: 5,
+                                  color: AppColors
+                                      .lightGrey), // Use AppColors.lightGrey
+
+                              // Carousel slider section
+                              CarouselSlider(
+                                items: crouselpics.map((item) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          image: AssetImage(item)),
+                                    ),
+                                  );
+                                }).toList(),
+                                options: CarouselOptions(
+                                  height: height * .23,
+                                  enlargeCenterPage: true,
+                                  autoPlay: true,
+                                  aspectRatio: 16 / 9,
+                                  autoPlayCurve: Curves.fastOutSlowIn,
+                                  enableInfiniteScroll: true,
+                                  autoPlayAnimationDuration:
+                                      const Duration(milliseconds: 600),
+                                  viewportFraction: 0.8,
+                                ),
+                              ),
+
+                              Divider(thickness: 5, color: AppColors.lightGrey),
+
+                              // Healthcare section
+                              SizedBox(height: height * 0.02),
+                              buildSection(
+                                context,
+                                'Healthcare at home',
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: wo.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return buildHorizontalCard(
+                                      height,
+                                      width,
+                                      wo[index],
+                                      wodetail[index],
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              const Divider(thickness: 5, color: Colors.grey),
+
+                              // Cleaning section
+                              buildSection(
+                                context,
+                                'Cleaning',
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 4,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return buildHorizontalCard(
+                                      height,
+                                      width,
+                                      cleaning[index],
+                                      cleaningdetail[index],
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              Divider(thickness: 5, color: AppColors.lightGrey),
+
+                              // AC Repair section
+                              buildSection(
+                                context,
+                                'AC Repair',
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 3,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return buildHorizontalCard(
+                                      height,
+                                      width,
+                                      ac[index],
+                                      acdetail[index],
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              Divider(
+                                  thickness: 5,
+                                  color: AppColors
+                                      .lightGrey), // Use AppColors.lightGrey
+
+                              // Women's Saloon section
+                              buildSection(
+                                context,
+                                'Womens Saloon',
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: ladies.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return buildHorizontalCard(
+                                      height,
+                                      width,
+                                      ladies[index],
+                                      ladiesdetail[index],
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              Divider(thickness: 5, color: AppColors.lightGrey),
+                              // Maintenance section
+                              buildSection(
+                                context,
+                                'Maintenance',
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: maintain.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return buildHorizontalCard(
+                                      height,
+                                      width,
+                                      maintain[index],
+                                      maintaindetail[index],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      }).toList(),
-                      options: CarouselOptions(
-                        height: height * .23,
-                        enlargeCenterPage: true,
-                        autoPlay: true,
-                        aspectRatio: 16 / 9,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enableInfiniteScroll: true,
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 600),
-                        viewportFraction: 0.8,
-                      ),
+                        ),
+                      ],
                     ),
-
-                    Divider(thickness: 5, color: AppColors.lightGrey),
-
-                    // Healthcare section
-                    SizedBox(height: height * 0.02),
-                    buildSection(
-                      context,
-                      'Healthcare at home',
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: wo.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return buildHorizontalCard(
-                            height,
-                            width,
-                            wo[index],
-                            wodetail[index],
-                          );
-                        },
-                      ),
-                    ),
-
-                    const Divider(thickness: 5, color: Colors.grey),
-
-                    // Cleaning section
-                    buildSection(
-                      context,
-                      'Cleaning',
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 4,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return buildHorizontalCard(
-                            height,
-                            width,
-                            cleaning[index],
-                            cleaningdetail[index],
-                          );
-                        },
-                      ),
-                    ),
-
-                    Divider(thickness: 5, color: AppColors.lightGrey),
-
-                    // AC Repair section
-                    buildSection(
-                      context,
-                      'AC Repair',
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 3,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return buildHorizontalCard(
-                            height,
-                            width,
-                            ac[index],
-                            acdetail[index],
-                          );
-                        },
-                      ),
-                    ),
-
-                    Divider(
-                        thickness: 5,
-                        color: AppColors.lightGrey), // Use AppColors.lightGrey
-
-                    // Women's Saloon section
-                    buildSection(
-                      context,
-                      'Womens Saloon',
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: ladies.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return buildHorizontalCard(
-                            height,
-                            width,
-                            ladies[index],
-                            ladiesdetail[index],
-                          );
-                        },
-                      ),
-                    ),
-
-                    Divider(thickness: 5, color: AppColors.lightGrey),
-                    // Maintenance section
-                    buildSection(
-                      context,
-                      'Maintenance',
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: maintain.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return buildHorizontalCard(
-                            height,
-                            width,
-                            maintain[index],
-                            maintaindetail[index],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 

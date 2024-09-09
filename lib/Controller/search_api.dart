@@ -18,7 +18,7 @@ class SearchProductsApi extends ChangeNotifier {
     notifyListeners();
 
     try {
-      log('message');
+    
       final response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.searchapi}"),
         body: {
@@ -27,7 +27,7 @@ class SearchProductsApi extends ChangeNotifier {
       );
 
       if (response.statusCode == 200) {
-        log('mesage');
+        log('mesage ${response.body}');
         _searchResults = SearchModel.fromJson(jsonDecode(response.body));
         return _searchResults;
       } else {
