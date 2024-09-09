@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:service_app/Controller/auth_controller.dart';
+<<<<<<< HEAD
 
 
 import '../../Utils/shared_prefrence_data.dart';
+=======
+>>>>>>> c5e43efb9fb7113fac3c9c722f8c024a7e67e647
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
