@@ -44,8 +44,7 @@ class AuthController extends ChangeNotifier {
       loading = false;
       notifyListeners();
       myToastContext.init(context);
-      ToastComponent.showDialogError("${myData['message']}",
-          gravity: Toast.top);
+      Utills.showDialogError("${myData['message']}", gravity: Toast.top);
     }
   }
 
@@ -73,7 +72,7 @@ class AuthController extends ChangeNotifier {
     } else {
       loading = false;
       notifyListeners();
-      ToastComponent.showDialogError("${myJsonData['message']}");
+      Utills.showDialogError("${myJsonData['message']}");
     }
   }
 
@@ -97,7 +96,7 @@ class AuthController extends ChangeNotifier {
     } else {
       loading = false;
       notifyListeners();
-      ToastComponent.showDialogError("${myJosnData['message']}");
+      Utills.showDialogError("${myJosnData['message']}");
     }
   }
 
@@ -114,10 +113,10 @@ class AuthController extends ChangeNotifier {
     myToastContext.init(context);
     var jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Utills.showDialogSuccess("${jsonData['message']}");
       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     } else {
-      ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Utills.showDialogSuccess("${jsonData['message']}");
     }
     loading = false;
     notifyListeners();
@@ -139,10 +138,10 @@ class AuthController extends ChangeNotifier {
     var jsonData = jsonDecode(response.body);
     myToastContext.init(context);
     if (response.statusCode == 200) {
-      ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Utills.showDialogSuccess("${jsonData['message']}");
       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     } else {
-      ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Utills.showDialogSuccess("${jsonData['message']}");
     }
     loading = false;
     notifyListeners();

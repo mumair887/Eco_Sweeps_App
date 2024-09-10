@@ -33,7 +33,7 @@ class CartController extends ChangeNotifier {
         myAddedCart = AddToCartModel.fromJson(jsonData);
         return myAddedCart;
       } else {
-        ToastComponent.showDialogError("Something went wrong try again later");
+        Utills.showDialogError("Something went wrong try again later");
         return AddToCartModel();
       }
     } catch (e) {
@@ -53,7 +53,7 @@ class CartController extends ChangeNotifier {
         viewMyCart = ViewCartModel.fromJson(jsonData);
         return viewMyCart;
       } else {
-        ToastComponent.showDialogError("Something went wrong try again later");
+        Utills.showDialogError("Something went wrong try again later");
         return ViewCartModel();
       }
     } catch (e) {
@@ -78,7 +78,7 @@ class CartController extends ChangeNotifier {
         updateCart = UpdateCartModel.fromJson(jsonData);
         return updateCart;
       } else {
-        ToastComponent.showDialogError("Something went wrong try again later");
+        Utills.showDialogError("Something went wrong try again later");
         return UpdateCartModel();
       }
     } catch (e) {
@@ -93,9 +93,9 @@ class CartController extends ChangeNotifier {
     );
     var jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Utills.showDialogSuccess("${jsonData['message']}");
     } else {
-      ToastComponent.showDialogError("${jsonData['message']}");
+      Utills.showDialogError("${jsonData['message']}");
     }
   }
 //

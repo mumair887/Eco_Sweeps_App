@@ -173,6 +173,7 @@ class _UcScreenState extends State<UcScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
+          // ignore: unnecessary_null_comparison
           : searchResults == null
               ? const Center(
                   child: Text('No search results'),

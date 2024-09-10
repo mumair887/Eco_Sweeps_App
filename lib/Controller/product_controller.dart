@@ -33,7 +33,7 @@ class ProductController extends ChangeNotifier {
         return ProductModel();
       }
     } catch (e) {
-      ToastComponent.showDialogError("$e");
+      Utills.showDialogError("$e");
       return ProductModel();
     }
   }
@@ -58,7 +58,7 @@ class ProductController extends ChangeNotifier {
         return ProductDetailsModel();
       }
     } catch (e) {
-      ToastComponent.showDialogError("$e");
+      Utills.showDialogError("$e");
       return ProductDetailsModel();
     }
   }
