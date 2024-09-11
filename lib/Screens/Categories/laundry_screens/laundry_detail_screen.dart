@@ -61,7 +61,7 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
               SizedBox(
                 height: height * 0.02,
               ),
-              
+
               //------------------listview builder widget start---------------------///
 
               FutureBuilder(
@@ -192,7 +192,7 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                   ),
                                                   SizedBox(
                                                       height: height * 0.020),
-                                                  const Text(
+                                                  const Text( 
                                                     'Materials',
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -330,169 +330,174 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                   },
                                 );
                               },
-                              child: Column(children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: height * 0.13,
-                                      width: width * 0.21,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              snapshot.data!.category!
-                                                  .products![index].image
-                                                  .toString(),
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
                                         height: height * 0.13,
-                                        width: width * 0.7,
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              snapshot.data!.category!
-                                                  .products![index].name
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                        width: width * 0.21,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                snapshot.data!.category!
+                                                    .products![index].image
+                                                    .toString(),
+                                              ),
+                                              fit: BoxFit.cover,
                                             ),
-                                            Text(snapshot.data!.category!
-                                                .products![index].description
-                                                .toString()),
-                                            SizedBox(
-                                              height: height * 0.04,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Text(snapshot.data!.category!
-                                                    .products![index].amount
-                                                    .toString()),
-                                                SizedBox(
-                                                  width: width * 0.350,
-                                                ),
-                                                if (isAddedToCart[index])
-                                                  Row(
-                                                    children: [
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            if (quantities[
-                                                                    index] >
-                                                                0) {
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Container(
+                                          height: height * 0.13,
+                                          width: width * 0.7,
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                snapshot.data!.category!
+                                                    .products![index].name
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(snapshot.data!.category!
+                                                  .products![index].description
+                                                  .toString()),
+                                              SizedBox(
+                                                height: height * 0.04,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Text(snapshot.data!.category!
+                                                      .products![index].amount
+                                                      .toString()),
+                                                  SizedBox(
+                                                    width: width * 0.350,
+                                                  ),
+                                                  if (isAddedToCart[index])
+                                                    Row(
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              if (quantities[
+                                                                      index] >
+                                                                  0) {
+                                                                quantities[
+                                                                    index]--;
+                                                              }
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            height:
+                                                                height * 0.030,
+                                                            width: width * 0.06,
+                                                            decoration: BoxDecoration(
+                                                                color:
+                                                                    Colors.red,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            child: const Icon(
+                                                                Icons.remove),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: width * 0.02,
+                                                        ),
+                                                        Text(
+                                                          quantities[index]
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 17),
+                                                        ),
+                                                        SizedBox(
+                                                          width: width * 0.02,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
                                                               quantities[
-                                                                  index]--;
-                                                            }
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          height:
-                                                              height * 0.030,
-                                                          width: width * 0.06,
-                                                          decoration: BoxDecoration(
-                                                              color: Colors.red,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20)),
-                                                          child: const Icon(
-                                                              Icons.remove),
+                                                                  index]++;
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            height:
+                                                                height * 0.030,
+                                                            width: width * 0.06,
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .green,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            child: const Icon(
+                                                                Icons.add),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: width * 0.01,
-                                                      ),
-                                                      Text(
-                                                        quantities[index]
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 17),
-                                                      ),
-                                                      SizedBox(
-                                                        width: width * 0.01,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            quantities[index]++;
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          height:
-                                                              height * 0.030,
-                                                          width: width * 0.06,
-                                                          decoration: BoxDecoration(
-                                                              color:
-                                                                  Colors.green,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20)),
-                                                          child: const Icon(
-                                                              Icons.add),
+                                                      ],
+                                                    )
+                                                  else
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isAddedToCart[index] =
+                                                              true;
+                                                          quantities[index] = 1;
+                                                        });
+                                                      },
+                                                      child: ContainerWidget(
+                                                        height: height * 0.03,
+                                                        width: width * .19,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: AppColors
+                                                              .lightgreen,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                else
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        isAddedToCart[index] =
-                                                            true;
-                                                        quantities[index] = 1;
-                                                      });
-                                                    },
-                                                    child: ContainerWidget(
-                                                      height: height * 0.03,
-                                                      width: width * 0.20,
-                                                      decoration: BoxDecoration(
-                                                        color: AppColors
-                                                            .lightgreen,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Add Cart',
-                                                          style: TextStyle(
-                                                              color: AppColors
-                                                                  .white),
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Add Cart',
+                                                            style: TextStyle(
+                                                                color: AppColors
+                                                                    .white),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                              ],
-                                            )
-                                          ],
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Divider(
-                                    thickness: 3, color: AppColors.lightGrey),
-                                SizedBox(
-                                  height: height * 0.01,
-                                ),
-                              ]),
+                                    ],
+                                  ),
+                                  Divider(
+                                      thickness: 3, color: AppColors.lightGrey),
+                                ],
+                              ),
                             );
                           }),
                     );
