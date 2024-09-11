@@ -48,7 +48,7 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -57,11 +57,10 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                 style:
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              Divider(thickness: 2, color: AppColors.lightGrey),
-              SizedBox(
-                height: height * 0.02,
-              ),
 
+              const SizedBox(
+                height: 10,
+              ),
               //------------------listview builder widget start---------------------///
 
               FutureBuilder(
@@ -73,7 +72,9 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                         child: CircularProgressIndicator(),
                       );
                     }
-                    return SizedBox(
+                    return Container(
+                      color: Colors.grey[200],
+                      padding: const EdgeInsets.all(2),
                       child: ListviewWidget(
                           scrollDirection: Axis.vertical,
                           itemCount:
@@ -97,7 +98,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(20),
                                                 topRight: Radius.circular(20)),
-                                            color: Colors.white,
                                           ),
                                           child: SingleChildScrollView(
                                             child: Padding(
@@ -192,7 +192,7 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                                   ),
                                                   SizedBox(
                                                       height: height * 0.020),
-                                                  const Text( 
+                                                  const Text(
                                                     'Materials',
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -373,8 +373,8 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                               Text(snapshot.data!.category!
                                                   .products![index].description
                                                   .toString()),
-                                              SizedBox(
-                                                height: height * 0.04,
+                                              const SizedBox(
+                                                height: 5,
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -494,8 +494,6 @@ class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
                                       ),
                                     ],
                                   ),
-                                  Divider(
-                                      thickness: 3, color: AppColors.lightGrey),
                                 ],
                               ),
                             );
