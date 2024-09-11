@@ -18,8 +18,9 @@ class SearchProductsApi extends ChangeNotifier {
     notifyListeners();
 
     try {
+      final url = "${APIREQUEST.baseUrl}${APIREQUEST.searchapi}";
       final response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.searchapi}"),
+        Uri.parse(url),
         body: {
           'query': query,
         },
