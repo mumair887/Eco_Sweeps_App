@@ -91,7 +91,7 @@ class AuthController extends ChangeNotifier {
       loading = false;
       notifyListeners();
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const UcScreen()));
+          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
       Get.snackbar('Eco Sweeps', 'User Registerd sucessfully',
           backgroundColor: Colors.green);
     } else {

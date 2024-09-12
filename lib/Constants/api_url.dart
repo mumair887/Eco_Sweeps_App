@@ -24,11 +24,10 @@ class APIREQUEST {
 
 //Addresses
 
- static const postAddress = "/address-store";
- static const getAddress = "/address";
- //search api 
- static const searchapi="/search";
-  
+  static const postAddress = "/address-store";
+  static const getAddress = "/address";
+  //search api
+  static const searchapi = "/search";
 
 //profile
   static const editprofile = "/edit-profile";

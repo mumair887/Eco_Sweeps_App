@@ -7,14 +7,14 @@ import 'package:service_app/Widgets/custom_textformfield.dart';
 import '../../Constants/app_colors.dart';
 import '../../Controller/search_api.dart';
 
-class UcScreen extends StatefulWidget {
-  const UcScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<UcScreen> createState() => _UcScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _UcScreenState extends State<UcScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchController = TextEditingController();
 
   SearchModel searchResults = SearchModel();

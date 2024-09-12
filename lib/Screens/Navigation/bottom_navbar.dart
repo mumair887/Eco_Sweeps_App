@@ -13,7 +13,7 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   List screens = [
-    const UcScreen(),
+    const HomeScreen(),
     const BookingScreen(),
     const AccountScreen(),
     // const RewardsScreen(),
