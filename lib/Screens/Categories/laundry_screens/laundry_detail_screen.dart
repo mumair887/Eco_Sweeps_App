@@ -5,21 +5,23 @@ import 'package:service_app/Widgets/container_widget.dart';
 import 'package:service_app/Widgets/listview_widget.dart';
 import '../../../Constants/App_colors.dart';
 
-class LaundryDetailScreen extends StatefulWidget {
+class ProductListingAndDetailScreen extends StatefulWidget {
   final int? categoryId;
   final int? subcatId;
   final String? name;
-  const LaundryDetailScreen(
+  const ProductListingAndDetailScreen(
       {super.key,
       required this.categoryId,
       required this.subcatId,
       required this.name});
 
   @override
-  State<LaundryDetailScreen> createState() => _LaundryDetailScreenState();
+  State<ProductListingAndDetailScreen> createState() =>
+      _ProductListingAndDetailScreenState();
 }
 
-class _LaundryDetailScreenState extends State<LaundryDetailScreen> {
+class _ProductListingAndDetailScreenState
+    extends State<ProductListingAndDetailScreen> {
   List<int> quantities = List.filled(6, 0);
   List<bool> isAddedToCart = List.filled(6, false);
 

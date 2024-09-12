@@ -80,7 +80,7 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => LaundryDetailScreen(
+                builder: (context) => ProductListingAndDetailScreen(
                       categoryId: widget.catId,
                       subcatId: subCategory.data![index].id,
                       name: subCategory.data![index].name,
