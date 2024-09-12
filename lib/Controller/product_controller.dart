@@ -39,28 +39,29 @@ class ProductController extends ChangeNotifier {
   }
 //
 
-  Future<ProductDetailsModel> getProductDetails(int productId) async {
+  Future<ProductDetailsModel> postProductDetails(int productId) async {
     try {
       var response = await http.post(
-          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productUrl}"),
-          headers: {
-            "accept": "application/json",
-          },
-          body: {
-            "product_id": "$productId",
-          });
-      log("MyProducts ==> ${response.body}");
+        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productDetails}"),
+        headers: {
+          "Accept": "application/json",
+        },
+        body: {
+          "id": productId, // Ensure the ID is passed as a string
+        },
+      );
+
       var myJsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        productModel = ProductModel.fromJson(myJsonData);
-        return productDetail!;
+        // Assuming your ProductDetailsModel constructor expects the 'Data' field
+        return ProductDetailsModel.fromJson(myJsonData['Data']);
       } else {
-        return ProductDetailsModel();
+        return ProductDetailsModel(); // Return an empty model or handle error as needed
       }
     } catch (e) {
-      ToastComponent.showDialogError("$e");
+      // Show the error message
+      ToastComponent.showDialogError("Error: $e");
       return ProductDetailsModel();
     }
   }
-//
 }
