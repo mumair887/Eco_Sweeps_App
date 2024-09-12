@@ -19,7 +19,7 @@ class SearchModel {
           subcategories!.add(
             Subcategories.fromJson(v),
           );
-        },
+        },  
       );
     }
     if (json['products'] != null) {
@@ -28,7 +28,7 @@ class SearchModel {
         products!.add(Products.fromJson(v));
       },);
     }
-  }
+  } 
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

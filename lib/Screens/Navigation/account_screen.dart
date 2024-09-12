@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:service_app/Controller/auth_controller.dart';
 import 'package:service_app/Screens/Settings/manage_payment.dart';
 import 'package:service_app/Screens/Settings/mange_addresses.dart';
-import 'package:service_app/Screens/Settings/plus_membership.dart';
 import 'package:service_app/Screens/Settings/scheduled_screen.dart';
 import 'package:service_app/Screens/Settings/update_profile.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
 import '../Settings/About_ecs.dart';
 import '../Settings/setting_screen.dart';
-import '../Settings/wallet_screen.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
