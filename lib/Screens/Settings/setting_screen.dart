@@ -3,12 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:service_app/Controller/auth_controller.dart';
 import '../../Utils/shared_prefrence_data.dart';
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> Muhammad_Younis
+
+
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 

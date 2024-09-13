@@ -21,11 +21,8 @@ class MySearchController extends ChangeNotifier {
     notifyListeners();
 
     try {
-
-      final url = "${APIREQUEST.baseUrl}${APIREQUEST.searchapi}";
-
       final response = await http.post(
-        Uri.parse(url),
+        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.searchapi}"),
         body: {
           'query': query,
         },

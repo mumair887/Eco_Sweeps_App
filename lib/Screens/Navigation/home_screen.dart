@@ -6,12 +6,7 @@ import 'package:service_app/Screens/Search/search_screen.dart';
 import 'package:service_app/Screens/SubCategories/custom_subcategory_screen.dart';
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import '../../Constants/app_colors.dart';
-<<<<<<< HEAD
-=======
-import '../../Controller/search_api.dart';
-import '../../Models/category.dart';
->>>>>>> Muhammad_Younis
-
+import '../../Controller/search_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchController = TextEditingController();
-  CategoryModel categoryShowHome = CategoryModel();
+
   SearchModel searchResults = SearchModel();
   bool isLoading = false;
   CategoryController categoryController = CategoryController();
@@ -179,7 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-<<<<<<< HEAD
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: SingleChildScrollView(
@@ -253,128 +247,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               CustomSubCategoryScreen(
                                             catId:
                                                 snapshot.data!.data![index].id,
-=======
-          // ignore: unnecessary_null_comparison
-          : searchResults == null
-              ? const Center(
-                  child: Text('No search results'),
-                )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SafeArea(
-                          child: Column(
-                            children: [
-                              // Location, Cart section
-                              ListTile(
-                                title: const Text(
-                                  'Multan',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                subtitle: const Text(
-                                    'Sabzazar Colony-Multan-Pakistan'),
-                                trailing: CircleAvatar(
-                                  backgroundColor: AppColors
-                                      .lightGrey, // Use AppColors.lightgreen here
-                                  child:
-                                      const Icon(Icons.shopping_cart_outlined),
-                                ),
-                              ),
-                              SizedBox(height: height * 0.02),
-
-                              // Search bar
-                              CustomTextFormField(
-                                controller: searchController,
-                                hintText: 'Look for services',
-                                bordercolor: AppColors.black,
-                                prefixIcon: Icons.search,
-                                onFieldSubmitted: (v) {
-                                  searchProduct.search(v);
-                                },
-                                onChanged: (p0) {
-                                  searchProduct.search(p0);
-                                },
-                              ),
-
-                              SizedBox(height: height * 0.02),
-
-                              // First services section
-
-                              FutureBuilder(
-                                future: categoryController.fetchCategory(),
-                                builder: (context, snapshot) {
-                                  if (!snapshot.hasData) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-
-                                  return GridView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: snapshot.data!.data!.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 10,
-                                      mainAxisExtent: 130,
-                                      mainAxisSpacing: 10,
-                                      crossAxisCount: 3,
-                                    ),
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CustomSubCategoryScreen(
-                                                catId: snapshot
-                                                    .data!.data![index].id,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        child: Container(
-                                          height: height * 0.15,
-                                          width: width * .40,
-                                          decoration: const BoxDecoration(),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                height: height * 0.10,
-                                                width: width * .27,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.black),
-                                                  color: Colors.grey[
-                                                      200], // Use AppColors.lightGrey
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                      snapshot.data!
-                                                          .data![index].image
-                                                          .toString(),
-                                                    ),
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                snapshot.data!.data![index].name
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 13,
-                                                ),
-                                              )
-                                            ],
->>>>>>> Muhammad_Younis
                                           ),
                                         ),
                                       );
@@ -417,141 +289,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   );
-<<<<<<< HEAD
                                 },
                               );
                             },
-=======
-                                }).toList(),
-                                options: CarouselOptions(
-                                  height: height * .23,
-                                  enlargeCenterPage: true,
-                                  autoPlay: true,
-                                  aspectRatio: 16 / 9,
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  enableInfiniteScroll: true,
-                                  autoPlayAnimationDuration:
-                                      const Duration(milliseconds: 600),
-                                  viewportFraction: 0.8,
-                                ),
-                              ),
-
-                              Divider(thickness: 5, color: AppColors.lightGrey),
-
-                              // Healthcare section
-                              SizedBox(height: height * 0.02),
-                              buildSection(
-                                context,
-                                'Healthcare at home',
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: wo.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    if (categoryShowHome
-                                            .data?[index].showOnHome ==
-                                        "0") {
-                                      buildHorizontalCard(
-                                        height,
-                                        width,
-                                        wo[index],
-                                        wodetail[index],
-                                      );
-                                    } else {
-                                     "no catefories ";
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-
-                              const Divider(thickness: 5, color: Colors.grey),
-
-                              // Cleaning section
-                              buildSection(
-                                context,
-                                'Cleaning',
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: 4,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return buildHorizontalCard(
-                                      height,
-                                      width,
-                                      cleaning[index],
-                                      cleaningdetail[index],
-                                    );
-                                  },
-                                ),
-                              ),
-
-                              Divider(thickness: 5, color: AppColors.lightGrey),
-
-                              // AC Repair section
-                              buildSection(
-                                context,
-                                'AC Repair',
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: 3,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return buildHorizontalCard(
-                                      height,
-                                      width,
-                                      ac[index],
-                                      acdetail[index],
-                                    );
-                                  },
-                                ),
-                              ),
-
-                              Divider(
-                                  thickness: 5,
-                                  color: AppColors
-                                      .lightGrey), // Use AppColors.lightGrey
-
-                              // Women's Saloon section
-                              buildSection(
-                                context,
-                                'Womens Saloon',
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: ladies.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return buildHorizontalCard(
-                                      height,
-                                      width,
-                                      ladies[index],
-                                      ladiesdetail[index],
-                                    );
-                                  },
-                                ),
-                              ),
-
-                              Divider(thickness: 5, color: AppColors.lightGrey),
-                              // Maintenance section
-                              buildSection(
-                                context,
-                                'Maintenance',
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: maintain.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return buildHorizontalCard(
-                                      height,
-                                      width,
-                                      maintain[index],
-                                      maintaindetail[index],
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
->>>>>>> Muhammad_Younis
                           ),
 
                           Divider(

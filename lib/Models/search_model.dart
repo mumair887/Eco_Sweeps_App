@@ -14,21 +14,17 @@ class SearchModel {
     }
     if (json['subcategories'] != null) {
       subcategories = <Subcategories>[];
-      json['subcategories'].forEach(
-        (v) {
-          subcategories!.add(
-            Subcategories.fromJson(v),
-          );
-        },  
-      );
+      json['subcategories'].forEach((v) {
+        subcategories!.add(Subcategories.fromJson(v));
+      });
     }
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
         products!.add(Products.fromJson(v));
-      },);
+      });
     }
-  } 
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

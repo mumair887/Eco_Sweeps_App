@@ -20,13 +20,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
-        primaryTextTheme:
-            GoogleFonts.poppinsTextTheme(Theme.of(context).primaryTextTheme),
-        appBarTheme:
-            AppBarTheme(backgroundColor: AppColors.white, centerTitle: true),
-        scaffoldBackgroundColor: AppColors.white,
-      ),
+          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+          primaryTextTheme:
+              GoogleFonts.poppinsTextTheme(Theme.of(context).primaryTextTheme),
+          appBarTheme:
+              AppBarTheme(backgroundColor: AppColors.white, centerTitle: true),
+          scaffoldBackgroundColor: AppColors.white),
       routes: {
         'navbar': (context) => const BottomNavbar(),
         '/login': (context) => const LoginScreen(),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:service_app/Constants/app_colors.dart';
 import 'package:toast/toast.dart';
 
-class Utills {
+class ToastComponent {
 //
   static showDialogError(String msg, {duration = 0, gravity = 0}) {
     Toast.show(msg,
@@ -20,7 +20,7 @@ class Utills {
   }
 //
 
-  static showDialogSuccess(String msg, {duration = 0, gravity = 0}) {
+ static showDialogSuccess(String msg, {duration = 0, gravity = 0}) {
     Toast.show(msg,
         duration: duration != 0 ? duration : Toast.lengthShort,
         gravity: gravity != 0 ? gravity : Toast.bottom,
@@ -34,4 +34,5 @@ class Utills {
         ),
         backgroundRadius: 6);
   }
+
 }
