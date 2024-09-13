@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:service_app/Controller/auth_controller.dart';
 import 'package:service_app/Screens/Settings/manage_payment.dart';
 import 'package:service_app/Screens/Settings/mange_addresses.dart';
+<<<<<<< HEAD
 
+=======
+>>>>>>> Muhammad_Younis
 import 'package:service_app/Screens/Settings/scheduled_screen.dart';
 import 'package:service_app/Screens/Settings/update_profile.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
@@ -84,6 +87,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                     ),
                   ),
+<<<<<<< HEAD
+=======
+                 
+>>>>>>> Muhammad_Younis
                   Card(
                     child: Container(
                       width: width * 0.27,
@@ -116,6 +123,10 @@ class _AccountScreenState extends State<AccountScreen> {
               SizedBox(
                 height: height * 0.05,
               ),
+<<<<<<< HEAD
+=======
+             
+>>>>>>> Muhammad_Younis
               InkWell(
                 child: Row(
                   children: [
@@ -315,6 +326,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   ],
                 ),
               ),
+<<<<<<< HEAD
+=======
+           
+>>>>>>> Muhammad_Younis
               SizedBox(
                 height: height * 0.03,
               ),

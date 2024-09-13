@@ -33,7 +33,7 @@ class ProductController extends ChangeNotifier {
         return ProductModel();
       }
     } catch (e) {
-      ToastComponent.showDialogError("$e");
+      Utills.showDialogError("$e");
       return ProductModel();
     }
   }
@@ -59,8 +59,12 @@ class ProductController extends ChangeNotifier {
         return ProductDetailsModel(); // Return an empty model or handle error as needed
       }
     } catch (e) {
+<<<<<<< HEAD
       // Show the error message
       ToastComponent.showDialogError("Error: $e");
+=======
+      Utills.showDialogError("$e");
+>>>>>>> Muhammad_Younis
       return ProductDetailsModel();
     }
   }

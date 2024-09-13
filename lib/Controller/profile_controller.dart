@@ -22,9 +22,9 @@ class ProfileController extends ChangeNotifier {
       // return response;
       if (response.statusCode == 200) {
         log(response.body);
-        ToastComponent.showDialogSuccess("${jsonData['message']}");
+        Utills.showDialogSuccess("${jsonData['message']}");
       } else {
-        ToastComponent.showDialogError("${jsonData['messae']}");
+        Utills.showDialogError("${jsonData['messae']}");
       }
     } catch (e) {
       print(e.toString());
@@ -51,9 +51,9 @@ class ProfileController extends ChangeNotifier {
       var jsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
         log(response.body);
-        ToastComponent.showDialogSuccess("${jsonData['message']}");
+        Utills.showDialogSuccess("${jsonData['message']}");
       } else {
-        ToastComponent.showDialogError("${jsonData['message']}");
+        Utills.showDialogError("${jsonData['message']}");
       }
     } catch (e) {
       print(e.toString());
