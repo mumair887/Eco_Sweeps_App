@@ -6,6 +6,7 @@ import 'package:service_app/Screens/SubCategories/custom_subcategory_screen.dart
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import '../../Constants/app_colors.dart';
 import '../../Controller/search_api.dart';
+import '../../Models/category.dart';
 
 class UcScreen extends StatefulWidget {
   const UcScreen({super.key});
@@ -16,7 +17,7 @@ class UcScreen extends StatefulWidget {
 
 class _UcScreenState extends State<UcScreen> {
   TextEditingController searchController = TextEditingController();
-
+  CategoryModel categoryShowHome = CategoryModel();
   SearchModel searchResults = SearchModel();
   bool isLoading = false;
   CategoryController categoryController = CategoryController();
@@ -222,6 +223,7 @@ class _UcScreenState extends State<UcScreen> {
                               SizedBox(height: height * 0.02),
 
                               // First services section
+
                               FutureBuilder(
                                 future: categoryController.fetchCategory(),
                                 builder: (context, snapshot) {
@@ -341,12 +343,19 @@ class _UcScreenState extends State<UcScreen> {
                                   itemCount: wo.length,
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
-                                    return buildHorizontalCard(
-                                      height,
-                                      width,
-                                      wo[index],
-                                      wodetail[index],
-                                    );
+                                    if (categoryShowHome
+                                            .data?[index].showOnHome ==
+                                        "0") {
+                                      buildHorizontalCard(
+                                        height,
+                                        width,
+                                        wo[index],
+                                        wodetail[index],
+                                      );
+                                    } else {
+                                     "";
+                                    }
+                                    return null;
                                   },
                                 ),
                               ),
