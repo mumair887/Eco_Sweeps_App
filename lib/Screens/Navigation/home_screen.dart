@@ -6,7 +6,6 @@ import 'package:service_app/Screens/Search/search_screen.dart';
 import 'package:service_app/Screens/SubCategories/custom_subcategory_screen.dart';
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import '../../Constants/app_colors.dart';
-import '../../Controller/search_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -210,7 +209,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SearchScreen()));
+                                      builder: (context) =>
+                                          const SearchScreen()));
                             },
                           ),
 
