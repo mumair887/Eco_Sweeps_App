@@ -353,7 +353,7 @@ class _UcScreenState extends State<UcScreen> {
                                         wodetail[index],
                                       );
                                     } else {
-                                     "";
+                                     "no catefories ";
                                     }
                                     return null;
                                   },
