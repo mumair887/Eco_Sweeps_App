@@ -21,10 +21,9 @@ class MySearchController extends ChangeNotifier {
     notifyListeners();
 
     try {
-<<<<<<< HEAD:lib/Controller/search_controller.dart
-=======
+
       final url = "${APIREQUEST.baseUrl}${APIREQUEST.searchapi}";
->>>>>>> Muhammad_Younis:lib/Controller/search_api.dart
+
       final response = await http.post(
         Uri.parse(url),
         body: {
