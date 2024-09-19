@@ -17,14 +17,14 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController controller = TextEditingController();
-  final String initialCountry = 'KSA';
-  PhoneNumber number = PhoneNumber(isoCode: 'KSA');
+  final String initialCountry = 'AE';
+  PhoneNumber number = PhoneNumber(isoCode: 'AE', dialCode: 'AE');
 
   String selectedTitle = 'Title';
   TextEditingController nameController = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
-  TextEditingController Passwordcontroller = TextEditingController();
-  TextEditingController phone_numbercontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController phoneNumbercontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
   bool loading = false;
   bool? ischeked = false;
@@ -85,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       autoValidateMode: AutovalidateMode.disabled,
                       selectorTextStyle: const TextStyle(color: Colors.black),
                       initialValue: number,
-                      textFieldController: phone_numbercontroller,
+                      textFieldController: phoneNumbercontroller,
                       formatInput: true,
                       keyboardType: const TextInputType.numberWithOptions(
                           signed: true, decimal: true),
@@ -120,6 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
+              
                 SizedBox(height: height * .02),
                 Container(
                   height: height * .06, // Adjust the height as needed
@@ -209,7 +210,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: height * .03),
                 CustomTextFormField(
                   prefixIcon: Icons.lock,
-                  controller: Passwordcontroller,
+                  controller: passwordcontroller,
                   labelText: 'Password',
                   hintText: 'Password',
                 ),
@@ -242,8 +243,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       authController.signUp(
                         nameController.text,
                         emailcontroller.text,
-                        phone_numbercontroller.text,
-                        Passwordcontroller.text,
+                        phoneNumbercontroller.text,
+                        passwordcontroller.text,
                         context,
                       );
                     }
