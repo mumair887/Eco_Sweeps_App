@@ -55,7 +55,8 @@ class AuthController extends ChangeNotifier {
     loading = true;
     notifyListeners();
     var response = await http
-        .post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.login}"), body: {
+        .post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.login}"),
+         body: {
       "email": email,
       "password": password,
     });

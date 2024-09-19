@@ -9,7 +9,7 @@ import '../Address/address_detail.dart';
 class CartScreen extends StatefulWidget {
 
 
-  CartScreen({super.key});
+  const CartScreen({super.key});
 
 
 
