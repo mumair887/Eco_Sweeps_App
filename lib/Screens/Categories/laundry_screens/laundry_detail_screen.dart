@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_app/Controller/product_controller.dart';
+import 'package:service_app/Models/product.dart';
 import 'package:service_app/Screens/Categories/Product_detail/product_detail.dart';
 import 'package:service_app/Widgets/container_widget.dart';
 import 'package:service_app/Widgets/listview_widget.dart';
@@ -22,10 +23,10 @@ class ProductListingAndDetailScreen extends StatefulWidget {
 
 class _ProductListingAndDetailScreenState
     extends State<ProductListingAndDetailScreen> {
-  List<int> quantities = List.filled(6, 0);
-  List<bool> isAddedToCart = List.filled(6, false);
 
-  int _count = 0;
+ List<Products> cartAddedProducts = [];
+
+  int _count = 1;
   void increment() {
     setState(() {
       _count++;
@@ -34,7 +35,7 @@ class _ProductListingAndDetailScreenState
 
   void decrement() {
     setState(() {
-      if (_count > 0) {
+      if (_count > 1) {
         _count--;
       }
     });
@@ -87,7 +88,6 @@ class _ProductListingAndDetailScreenState
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const ProductDetailScreen()));
-                               
                               },
                               child: Column(children: [
                                 Row(
@@ -125,37 +125,44 @@ class _ProductListingAndDetailScreenState
                                               snapshot.data!.category!
                                                   .products![index].name
                                                   .toString(),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            Text(snapshot.data!.category!
-                                                .products![index].description
-                                                .toString()),
+                                            Text(
+                                              snapshot.data!.category!
+                                                  .products![index].description
+                                                  .toString(),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                             SizedBox(
-                                              height: height * 0.04,
+                                              height: height * 0.02,
                                             ),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: [
-                                                Text(snapshot.data!.category!
-                                                    .products![index].amount
-                                                    .toString()),
+                                                Text(
+                                                  snapshot.data!.category!
+                                                      .products![index].amount
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                                 SizedBox(
                                                   width: width * 0.350,
                                                 ),
-                                                if (isAddedToCart[index])
                                                   Row(
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () {
+
                                                           setState(() {
-                                                            if (quantities[
-                                                                    index] >
-                                                                0) {
-                                                              quantities[
-                                                                  index]--;
-                                                            }
+                                                            cartAddedProducts.add(snapshot.data!.category!.products![index]);
+                                                           
                                                           });
                                                         },
                                                         child: Container(
@@ -175,9 +182,9 @@ class _ProductListingAndDetailScreenState
                                                       SizedBox(
                                                         width: width * 0.01,
                                                       ),
-                                                      Text(
-                                                        quantities[index]
-                                                            .toString(),
+                                                      Text("",
+                                                        // quantities[index]
+                                                        //     .toString(),
                                                         style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -189,7 +196,7 @@ class _ProductListingAndDetailScreenState
                                                       GestureDetector(
                                                         onTap: () {
                                                           setState(() {
-                                                            quantities[index]++;
+                                                            // quantities[index]++;
                                                           });
                                                         },
                                                         child: Container(
@@ -209,35 +216,35 @@ class _ProductListingAndDetailScreenState
                                                       ),
                                                     ],
                                                   )
-                                                else
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        isAddedToCart[index] =
-                                                            true;
-                                                        quantities[index] = 1;
-                                                      });
-                                                    },
-                                                    child: ContainerWidget(
-                                                      height: height * 0.03,
-                                                      width: width * 0.20,
-                                                      decoration: BoxDecoration(
-                                                        color: AppColors
-                                                            .lightgreen,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Add Cart',
-                                                          style: TextStyle(
-                                                              color: AppColors
-                                                                  .white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                              
+                                                  // GestureDetector(
+                                                  //   onTap: () {
+                                                  //     setState(() {
+                                                  //       isAddedToCart[index] =
+                                                  //           true;
+                                                  //       quantities[index] = 1;
+                                                  //     });
+                                                  //   },
+                                                  //   child: ContainerWidget(
+                                                  //     height: height * 0.03,
+                                                  //     width: width * 0.20,
+                                                  //     decoration: BoxDecoration(
+                                                  //       color: AppColors
+                                                  //           .lightgreen,
+                                                  //       borderRadius:
+                                                  //           BorderRadius
+                                                  //               .circular(5),
+                                                  //     ),
+                                                  //     child: Center(
+                                                  //       child: Text(
+                                                  //         'Add Cart',
+                                                  //         style: TextStyle(
+                                                  //             color: AppColors
+                                                  //                 .white),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
                                               ],
                                             )
                                           ],

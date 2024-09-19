@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:service_app/Controller/category_controller.dart';
 import 'package:service_app/Models/search_model.dart';
+import 'package:service_app/Screens/Cart/cart_screen.dart';
 import 'package:service_app/Screens/Search/search_screen.dart';
 import 'package:service_app/Screens/SubCategories/custom_subcategory_screen.dart';
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import '../../Constants/app_colors.dart';
-import '../../Controller/search_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,75 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   CategoryController categoryController = CategoryController();
   SearchController searchProduct = SearchController();
-  List maintain = [
-    'assets/paint.jpg',
-    'assets/main.jpg',
-    'assets/tank.jpg',
-  ];
-  List maintaindetail = [
-    "Home Painting",
-    'Maintainance',
-    "Water Tank Cleaning",
-  ];
-  List ladies = [
-    'assets/wo1.jpg',
-    'assets/wo2.jpg',
-    'assets/lash.jpg',
-    'assets/wo4.jpg',
-    'assets/wo5.jpg',
-    'assets/wo6.jpg',
-    'assets/wo7.jpg',
-  ];
-  List ladiesdetail = [
-    "Hair Care",
-    "Women's Spa",
-    'Lashes and Brows',
-    'Spray Training',
-    'Nail Extensions',
-    'Womens Saloon',
-    'Luxury Women Saloon'
-  ];
-  List ac = [
-    'assets/duct.jpg',
-    'assets/split.jpg',
-    'assets/window.jpg',
-  ];
-  List acdetail = [
-    "Duct/Central AC",
-    'Split AC',
-    "Window AC",
-  ];
-  List cleaning = [
-    'assets/homeclean.jpg',
-    'assets/shoec.jpg',
-    'assets/deep.jpg',
-    'assets/acclean.jpg',
-  ];
-  List cleaningdetail = [
-    "Home Cleaning",
-    'Shoe Cleaning',
-    "Deep Clean",
-    'AC Cleaning',
-  ];
-  List acservices = [
-    'assets/ac ser.jpg',
-    'assets/pani.jpg',
-    'assets/oven.jpg',
-    'assets/frej.jpg',
-    'assets/machine.jpg'
-  ];
-  List salonwomen1 = [
-    'assets/wave.jpg',
-    'assets/ref.jpg',
-    'assets/w2.jpg',
-    'assets/w3.jpg',
-    'assets/w4.jpg',
-  ];
-  List salonwomen2 = [
-    'assets/w5.jpg',
-    'assets/w6.jpg',
-    'assets/w1.jpg',
-  ];
+
   List wo = [
     'assets/physio.jpg',
     'assets/nurse.jpg',
@@ -101,37 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/labtest.jpg',
     'assets/therapy.jpg'
   ];
-  List wodetail = [
-    "Physchotherapy\nat Home",
-    "Nurse care at Home",
-    'Doctor Consultation',
-    'PCR Test at Home',
-    'Flu Vaccine at Home',
-    'Physchother\nand Counsling',
-    'Lab Tests at Home',
-    'IV Therapy at Home'
-  ];
-  List mostbook = [
-    'assets/vacuum.png',
-    'assets/laundry-machine.png',
-    'assets/woman (1).png',
-    'assets/man.png',
-    'assets/maintainance.png',
-    'assets/car-wash.png',
-    'assets/air.png',
-    'assets/pest-control.png',
-    'assets/healthcare.png',
-    'assets/vehicle.png',
-    'assets/repair-shop.png',
-    'assets/mattress.png',
-    'assets/gardening.png',
-    'assets/apliance.jpg',
-    'assets/cooking.png',
-    'assets/car re.jpg',
-    'assets/movers p.png',
-    'assets/rent p.png',
-    'assets/kids.jpg'
-  ];
+
   final List<String> crouselpics = [
     'assets/first.jpg',
     'assets/second.jpg',
@@ -142,27 +47,41 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/last.jpg'
   ];
 
-  List appservices = [
-    'Cleaning',
-    'Laundry',
-    'ladies',
-    'Mens Saloon',
-    'Maintainance',
-    'Car wash at home/office',
-    'Ac Repair',
-    'Pest Control',
-    'Health care at home',
-    'Car on rent',
-    'Car repair',
-    'Furniture cleaning',
-    'Gardner',
-    'Appliances repair',
-    'Chef',
-    'Recovery Vehicle',
-    'Movers & Packers',
-    'Loading Vehicle',
-    'Kids Saloon'
-  ];
+  String address = '';
+  String city = '';
+
+  void fetchFullAddress() async {
+    if (await checkLocationPermission()) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      setState(() {
+        address =
+            '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+      });
+    }
+  }
+
+  Future<bool> checkLocationPermission() async {
+    if (await Permission.location.isGranted) {
+      return true;
+    } else {
+      var status = await Permission.location.request();
+      if (status.isGranted) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    fetchFullAddress();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -184,17 +103,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           // Location, Cart section
                           ListTile(
-                            title: const Text(
-                              'Multan',
-                              style: TextStyle(
+                            title: Text(
+                              city,
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            subtitle:
-                                const Text('Sabzazar Colony-Multan-Pakistan'),
-                            trailing: CircleAvatar(
-                              backgroundColor: AppColors
-                                  .lightGrey, // Use AppColors.lightgreen here
-                              child: const Icon(Icons.shopping_cart_outlined),
+                            subtitle: Text(address),
+                            trailing: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CartScreen()));
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: AppColors
+                                    .lightGrey, // Use AppColors.lightgreen here
+                                child: const Icon(Icons.shopping_cart_outlined),
+                              ),
                             ),
                           ),
                           SizedBox(height: height * 0.02),
@@ -210,7 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SearchScreen()));
+                                      builder: (context) =>
+                                          const SearchScreen()));
                             },
                           ),
 
@@ -339,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height,
                                   width,
                                   wo[index],
-                                  wodetail[index],
+                                  // wodetail[index],
                                 );
                               },
                             ),
@@ -348,44 +275,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Divider(thickness: 5, color: Colors.grey),
 
                           // Cleaning section
-                          buildSection(
-                            context,
-                            'Cleaning',
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 4,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return buildHorizontalCard(
-                                  height,
-                                  width,
-                                  cleaning[index],
-                                  cleaningdetail[index],
-                                );
-                              },
-                            ),
-                          ),
 
                           Divider(thickness: 5, color: AppColors.lightGrey),
 
                           // AC Repair section
-                          buildSection(
-                            context,
-                            'AC Repair',
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 3,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return buildHorizontalCard(
-                                  height,
-                                  width,
-                                  ac[index],
-                                  acdetail[index],
-                                );
-                              },
-                            ),
-                          ),
 
                           Divider(
                               thickness: 5,
@@ -393,43 +286,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .lightGrey), // Use AppColors.lightGrey
 
                           // Women's Saloon section
-                          buildSection(
-                            context,
-                            'Womens Saloon',
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: ladies.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return buildHorizontalCard(
-                                  height,
-                                  width,
-                                  ladies[index],
-                                  ladiesdetail[index],
-                                );
-                              },
-                            ),
-                          ),
 
                           Divider(thickness: 5, color: AppColors.lightGrey),
                           // Maintenance section
-                          buildSection(
-                            context,
-                            'Maintenance',
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: maintain.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return buildHorizontalCard(
-                                  height,
-                                  width,
-                                  maintain[index],
-                                  maintaindetail[index],
-                                );
-                              },
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -456,8 +315,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // Reusable method for building horizontal cards
-  Widget buildHorizontalCard(
-      double height, double width, String image, String detail) {
+  Widget buildHorizontalCard(double height, double width, String image,
+      {String? detail}) {
     return Column(
       children: [
         Padding(
@@ -474,11 +333,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
+        const Padding(
+          padding: EdgeInsets.only(left: 15),
           child: Text(
-            detail,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            // detail,
+            "",
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ],
