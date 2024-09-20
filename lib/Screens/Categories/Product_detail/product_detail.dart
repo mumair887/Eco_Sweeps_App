@@ -14,7 +14,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  ProductController productController = ProductController();
+
   List<int> quantities = List.filled(6, 0);
   List<bool> isAddedToCart = List.filled(6, false);
 
