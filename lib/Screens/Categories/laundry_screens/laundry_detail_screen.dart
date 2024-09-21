@@ -3,7 +3,7 @@ import 'package:service_app/Controller/product_controller.dart';
 import 'package:service_app/Models/product.dart';
 import 'package:service_app/Screens/Categories/Product_detail/product_detail.dart';
 import 'package:service_app/Widgets/listview_widget.dart';
-import '../../../Constants/App_colors.dart';
+import '../../../Constants/app_colors.dart';
 
 class ProductListingAndDetailScreen extends StatefulWidget {
   final int? categoryId;
