@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Constants/api_url.dart';
 import 'package:service_app/Models/product.dart';
@@ -41,22 +42,24 @@ class ProductController extends ChangeNotifier {
 
   Future<ProductDetailsModel> postProductDetails(int productId) async {
     try {
+      log("ogvugyybhgy");
       var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productDetails}"),
         headers: {
           "Accept": "application/json",
         },
         body: {
-          "id": productId, // Ensure the ID is passed as a string
+          "id": "$productId", // Ensure the ID is passed as a string
         },
       );
+      log("${response.statusCode}");
 
       var myJsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        // Assuming your ProductDetailsModel constructor expects the 'Data' field
-        return ProductDetailsModel.fromJson(myJsonData['Data']);
+        log("tgfggdrtgfth${response.body}");
+        return ProductDetailsModel.fromJson(myJsonData);
       } else {
-        return ProductDetailsModel(); // Return an empty model or handle error as needed
+        return ProductDetailsModel();
       }
     } catch (e) {
       // Show the error message

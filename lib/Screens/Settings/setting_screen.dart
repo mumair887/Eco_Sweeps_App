@@ -5,9 +5,6 @@ import '../../Utils/shared_prefrence_data.dart';
 
 
 
-
-
-
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 

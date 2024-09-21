@@ -87,7 +87,9 @@ class _ProductListingAndDetailScreenState
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const ProductDetailScreen()));
+                                             ProductDetailScreen(productId: snapshot.data!.category!
+                                                  .products![index].id!
+                                                  )));
                               },
                               child: Column(children: [
                                 Row(

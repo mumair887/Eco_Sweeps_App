@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Widgets/custome_container/custom_container.dart';
-import '../../Constants/App_colors.dart';
-import '../../Widgets/container_widget.dart';
-import '../../Widgets/round_button_widget.dart';
 import '../Address/address_detail.dart';
 
 class CartScreen extends StatefulWidget {
-
-
-  CartScreen({super.key});
-
-
-
-
+  const CartScreen({super.key});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -27,7 +18,7 @@ class _CartScreenState extends State<CartScreen> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping Cart'),
+        title: const Text('Cart'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -91,105 +82,10 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
                 onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return ContainerWidget(
-                        height: height * .5,
-                        width: width,
-                        decoration: const BoxDecoration(),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Column(children: [
-                            const Text(
-                              'Payment Summary',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [Text(' payment:'), Text('Rs. 100')],
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [Text(' Fee:'), Text('Rs. 30')],
-                            ),
-                            SizedBox(
-                              height: height * 0.02,
-                            ),
-                            Divider(thickness: 3, color: AppColors.lightGrey),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Total payable:'),
-                                Text('Rs. 130')
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.04,
-                            ),
-                            const Text(
-                              'Pay via:',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: height * 0.01,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  height: height * 0.09,
-                                  width: width * 0.22,
-                                  decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                          image:
-                                              AssetImage('assets/meezan.jpg'),
-                                          fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                Container(
-                                  height: height * 0.09,
-                                  width: width * 0.22,
-                                  decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                          image:
-                                              AssetImage('assets/dub bank.jpg'),
-                                          fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                Container(
-                                  height: height * 0.09,
-                                  width: width * 0.22,
-                                  decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                          image: AssetImage('assets/jazz.png'),
-                                          fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            RoundButtonWidget(
-                              title: 'CheckOut',
-                              onpress: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const BookAddressDetail()));
-                              },
-                              buttonColor: AppColors.lightgreen,
-                            )
-                          ]),
-                        ),
-                      );
-                    },
-                  );
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BookAddressDetail()));
                 },
                 child: Container(
                   width: width * 0.9,
