@@ -32,4 +32,8 @@ class APIREQUEST {
 //profile
   static const editprofile = "/edit-profile";
   static const updateprofile = "/update-profile";
+
+
+  //checkout
+  static const checkout= "/checkout";
 }

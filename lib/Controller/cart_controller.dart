@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Constants/api_url.dart';
 import 'package:service_app/Models/addTocart.dart';
+import 'package:service_app/Models/checkout_model.dart';
 import 'package:service_app/Models/product.dart';
 import 'package:service_app/Models/update_cart.dart';
 import 'package:service_app/Models/view_cart.dart';
@@ -14,6 +15,7 @@ class CartController extends ChangeNotifier {
   AddToCartModel? myAddedCart;
   ViewCartModel? viewMyCart;
   UpdateCartModel? updateCart;
+  ChekoutModel? checkOutModel;
 //
 
   Future<AddToCartModel?> addToCart(
@@ -98,5 +100,36 @@ class CartController extends ChangeNotifier {
       ToastComponent.showDialogError("${jsonData['message']}");
     }
   }
-//
+
+//checkout api function:
+
+  Future checkout(
+      {String? payment_methodasync,
+      String? total_price,
+      String? tax,
+      String? delivery_address}) async {
+    try {
+      var response = await http.post(
+          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.checkout}"),
+          headers: {
+            'Accept': 'application/json',
+          },
+          body: {
+            "payment_method": "cash_on_delivery",
+            "total_price": "150.75",
+            "tax": "15.50",
+            "delivery_address": "123 Main St, City, Country",
+          });
+      var jsonData = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        checkOutModel = ChekoutModel.fromJson(jsonData);
+        notifyListeners();
+        return checkOutModel;
+      } else {
+        return ChekoutModel();
+      }
+    } catch (e) {
+      throw Exception("");
+    }
+  }
 }

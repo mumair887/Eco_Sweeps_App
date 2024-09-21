@@ -8,7 +8,7 @@ import '../Models/category.dart';
 
 class CategoryController extends ChangeNotifier {
 //
-  CategoryModel? categoryModel;
+CategoryModel? categoryModel; 
   SubcategoryModel? subCategoryModel;
 //
 
