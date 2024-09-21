@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:service_app/Controller/product_controller.dart';
 import 'package:service_app/Models/product.dart';
 import 'package:service_app/Screens/Categories/Product_detail/product_detail.dart';
-import 'package:service_app/Widgets/container_widget.dart';
+
 import 'package:service_app/Widgets/listview_widget.dart';
 import '../../../Constants/App_colors.dart';
 
