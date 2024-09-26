@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:service_app/Constants/app_colors.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Models/view_cart.dart';
-import 'package:service_app/main.dart';
 
 import '../action_button.dart/action_button.dart';
 
