@@ -56,7 +56,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 ],
               ),
               Divider(thickness: 3, color: AppColors.lightGrey),
-              const Expanded(child: Booking())
+              const Expanded(child: BookingApi())
             ],
           ),
         ),

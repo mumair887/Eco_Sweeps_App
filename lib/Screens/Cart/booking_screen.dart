@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../../Controller/booking_controller.dart';
 import '../../Models/booking_model.dart';
 
-class Booking extends StatefulWidget {
-  const Booking({super.key});
+class BookingApi extends StatefulWidget {
+  const BookingApi({super.key});
 
   @override
-  _BookingState createState() => _BookingState();
+  _BookingApiState createState() => _BookingApiState();
 }
 
-class _BookingState extends State<Booking> {
+class _BookingApiState extends State<BookingApi> {
   BookingResponseModel? _booking;
   bool isLoading = true;
 
