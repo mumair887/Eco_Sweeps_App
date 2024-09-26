@@ -21,7 +21,7 @@ class AuthController extends ChangeNotifier {
     loading = true;
     notifyListeners();
     var response = await http
-        .post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.signup}"), headers: {
+        .post(Uri.parse("${APIUrls.baseUrl}${APIUrls.signup}"), headers: {
       "Accept": "application/json",
     }, body: {
       "name": name,
@@ -54,9 +54,8 @@ class AuthController extends ChangeNotifier {
   Future signIn(String email, String password, context) async {
     loading = true;
     notifyListeners();
-    var response = await http
-        .post(Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.login}"),
-         body: {
+    var response =
+        await http.post(Uri.parse("${APIUrls.baseUrl}${APIUrls.login}"), body: {
       "email": email,
       "password": password,
     });
@@ -82,11 +81,10 @@ class AuthController extends ChangeNotifier {
   Future signUpwithCode(String verificationCode, context) async {
     loading = true;
     notifyListeners();
-    var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.signupwithcode}"),
-        body: {
-          "verification_code": verificationCode,
-        });
+    var response = await http
+        .post(Uri.parse("${APIUrls.baseUrl}${APIUrls.signupwithcode}"), body: {
+      "verification_code": verificationCode,
+    });
     var myJosnData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       loading = false;
@@ -108,7 +106,7 @@ class AuthController extends ChangeNotifier {
     loading = true;
     notifyListeners();
     var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.deleteAccountUrl}"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.deleteAccountUrl}"),
         body: {
           "user_id": "$userId",
         });
@@ -129,14 +127,12 @@ class AuthController extends ChangeNotifier {
     loading = true;
     notifyListeners();
     var token = SharedPrefrenceData.getToken();
-    var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.logoutUrl}"),
-        headers: {
-          "Authorization": "Bearer $token"
-        },
-        body: {
-          "user_id": "$userId",
-        });
+    var response = await http
+        .post(Uri.parse("${APIUrls.baseUrl}${APIUrls.logoutUrl}"), headers: {
+      "Authorization": "Bearer $token"
+    }, body: {
+      "user_id": "$userId",
+    });
     var jsonData = jsonDecode(response.body);
     myToastContext.init(context);
     if (response.statusCode == 200) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:service_app/Screens/Cart/booking_screen.dart';
 import 'package:service_app/Screens/Navigation/help_screen.dart';
 
 import '../../Constants/App_colors.dart';
@@ -19,7 +20,7 @@ class _BookingScreenState extends State<BookingScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.all(15),
           child: Column(
             children: [
               Row(
@@ -55,7 +56,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 ],
               ),
               Divider(thickness: 3, color: AppColors.lightGrey),
-              
+              const Expanded(child: Booking())
             ],
           ),
         ),

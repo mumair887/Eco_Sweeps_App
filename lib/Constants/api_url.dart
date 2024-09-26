@@ -1,4 +1,4 @@
-class APIREQUEST {
+class APIUrls {
   static String baseUrl = "http://ecosweeps.maxcoretechnologies.com/public/api";
 
 // Categories Section
@@ -21,6 +21,7 @@ class APIREQUEST {
   static const getViewCart = "/cart";
   static const updateCart = "/update-cart";
   static const getDeleteCart = "/delete-cart";
+  static const bookingApi = "/booking/";
 
 //Addresses
 
@@ -33,7 +34,6 @@ class APIREQUEST {
   static const editprofile = "/edit-profile";
   static const updateprofile = "/update-profile";
 
-
   //checkout
-  static const checkout= "/checkout";
+  static const checkout = "/checkout";
 }

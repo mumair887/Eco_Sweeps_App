@@ -25,7 +25,7 @@ class CartController extends ChangeNotifier {
     log("MyCartData ==> $cartData");
     try {
       var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.addCart}"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.addCart}"),
         headers: {
           "accept": "application/json",
         },
@@ -56,7 +56,7 @@ class CartController extends ChangeNotifier {
     notifyListeners();
     try {
       var response = await http.get(
-          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.getViewCart}/$userId"),
+          Uri.parse("${APIUrls.baseUrl}${APIUrls.getViewCart}/$userId"),
           headers: {
             "Accept": "application/json",
           });
@@ -86,7 +86,7 @@ class CartController extends ChangeNotifier {
     };
     try {
       var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.updateCart}"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.updateCart}"),
         body: postData,
       );
       log("Update Cart Data ==> ${response.body}");
@@ -106,7 +106,7 @@ class CartController extends ChangeNotifier {
 
   Future deleteCart(int cartId) async {
     var response = await http.get(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.getDeleteCart}/$cartId"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.getDeleteCart}/$cartId"),
         headers: {
           "Accept": "application/json",
         });
@@ -128,17 +128,15 @@ class CartController extends ChangeNotifier {
       String? tax,
       String? deliveryAddress}) async {
     try {
-      var response = await http.post(
-          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.checkout}"),
-          headers: {
-            'Accept': 'application/json',
-          },
-          body: {
-            "payment_method": "$paymentMethod",
-            "total_price": "$totalPrice",
-            "tax": "$tax",
-            "delivery_address": "$deliveryAddress",
-          });
+      var response = await http
+          .post(Uri.parse("${APIUrls.baseUrl}${APIUrls.checkout}"), headers: {
+        'Accept': 'application/json',
+      }, body: {
+        "payment_method": "$paymentMethod",
+        "total_price": "$totalPrice",
+        "tax": "$tax",
+        "delivery_address": "$deliveryAddress",
+      });
       var jsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
         checkOutModel = ChekoutModel.fromJson(jsonData);

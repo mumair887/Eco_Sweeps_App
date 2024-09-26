@@ -11,7 +11,7 @@ class AddressController extends ChangeNotifier {
 
   Future<AddressModel?> postAddress(String houseno, String address,
       String? addressDetail, String landMark, int userId) async {
-    final String url = "${APIREQUEST.baseUrl}${APIREQUEST.postAddress}";
+    final String url = "${APIUrls.baseUrl}${APIUrls.postAddress}";
 
     try {
       final res = await http.post(Uri.parse(url), body: {

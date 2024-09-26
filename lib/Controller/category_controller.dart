@@ -8,14 +8,14 @@ import '../Models/category.dart';
 
 class CategoryController extends ChangeNotifier {
 //
-CategoryModel? categoryModel; 
+  CategoryModel? categoryModel;
   SubcategoryModel? subCategoryModel;
 //
 
   Future<CategoryModel?> fetchCategory() async {
     try {
       var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.categoryUrl}"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.categoryUrl}"),
       );
       log("myResponse ==> ${response.body}");
       var decodedData = jsonDecode(response.body);
@@ -35,10 +35,9 @@ CategoryModel? categoryModel;
 //
 
   Future<SubcategoryModel?> fetchSubCategory(int? catId) async {
-    
     try {
       var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.subCategoryUrl}"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.subCategoryUrl}"),
         body: {
           'category_id': "$catId",
         },

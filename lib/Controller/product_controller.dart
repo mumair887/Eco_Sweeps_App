@@ -15,15 +15,13 @@ class ProductController extends ChangeNotifier {
 
   Future<ProductModel> getProducts({int? catId, int? subCatId}) async {
     try {
-      var response = await http.post(
-          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productUrl}"),
-          headers: {
-            "accept": "application/json",
-          },
-          body: {
-            "category_id": "$catId",
-            "sub_category_id": "$subCatId",
-          });
+      var response = await http
+          .post(Uri.parse("${APIUrls.baseUrl}${APIUrls.productUrl}"), headers: {
+        "accept": "application/json",
+      }, body: {
+        "category_id": "$catId",
+        "sub_category_id": "$subCatId",
+      });
       log("MyProducts ==> ${response.body}");
       var myJsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
@@ -42,7 +40,7 @@ class ProductController extends ChangeNotifier {
   Future<ProductDetailsModel> postProductDetails(int productId) async {
     try {
       var response = await http.post(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productDetails}"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.productDetails}"),
         headers: {
           "Accept": "application/json",
         },
@@ -65,5 +63,4 @@ class ProductController extends ChangeNotifier {
     }
   }
 //
-
 }

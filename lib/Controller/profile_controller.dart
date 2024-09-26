@@ -13,11 +13,10 @@ class ProfileController extends ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-      var response = await http.post(
-          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.editprofile}"),
-          body: {
-            'userid': '$userId',
-          });
+      var response = await http
+          .post(Uri.parse("${APIUrls.baseUrl}${APIUrls.editprofile}"), body: {
+        'userid': '$userId',
+      });
       var jsonData = jsonDecode(response.body);
       // return response;
       if (response.statusCode == 200) {
@@ -40,14 +39,13 @@ class ProfileController extends ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-      var response = await http.post(
-          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.updateprofile}"),
-          body: {
-            'name': name,
-            'email': email,
-            'password': password,
-            'user_id': userId,
-          });
+      var response = await http
+          .post(Uri.parse("${APIUrls.baseUrl}${APIUrls.updateprofile}"), body: {
+        'name': name,
+        'email': email,
+        'password': password,
+        'user_id': userId,
+      });
       var jsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
         log(response.body);
