@@ -55,25 +55,79 @@ class _BookingApiState extends State<BookingApi> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Booking ID: ${booking.id}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
-                            Text('User ID: ${booking.userId}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Payment Method: ${booking.paymentMethod}',
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Payment Method: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                      text: booking
+                                          .paymentMethod), // Dynamic value
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 8),
-                            Text('Total Price: \$${booking.totalPrice}'),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Total Price: \$',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                      text: booking.totalPrice
+                                          .toString()), // Dynamic value
+                                ],
+                              ),
+                            ),
                             const SizedBox(height: 8),
-                            Text('Tax: \$${booking.tax}'),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Tax: \$',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                      text: booking.tax
+                                          .toString()), // Dynamic value
+                                ],
+                              ),
+                            ),
                             const SizedBox(height: 8),
-                            Text(
-                                'Delivery Address: ${booking.deliveryAddress}'),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Delivery Address: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                      text: booking
+                                          .deliveryAddress), // Dynamic value
+                                ],
+                              ),
+                            ),
                             const SizedBox(height: 8),
-                            Text('Created At: ${booking.createdAt}'),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Created At: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                      text: booking.createdAt), // Dynamic value
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
