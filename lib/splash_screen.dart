@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 3),
       () async {
         if (await SharedPrefrenceData.getToken() == null) {
+          // ignore: use_build_context_synchronously
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const SignUpScreen()));
         } else {
