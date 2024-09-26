@@ -8,6 +8,7 @@ import 'package:service_app/Models/search_model.dart';
 import 'package:service_app/Screens/Cart/cart_screen.dart';
 import 'package:service_app/Screens/Search/search_screen.dart';
 import 'package:service_app/Screens/SubCategories/custom_subcategory_screen.dart';
+import 'package:service_app/Utils/shared_prefrence_data.dart';
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import '../../Constants/app_colors.dart';
 
@@ -110,11 +111,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             subtitle: Text(address),
                             trailing: InkWell(
-                              onTap: () {
+                              onTap: () async {
+                                int userId =
+                                    await SharedPrefrenceData.getUserId();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CartScreen()));
+                                        builder: (context) => CartScreen(
+                                              userId: userId,
+                                            )));
                               },
                               child: CircleAvatar(
                                 backgroundColor: AppColors
@@ -174,6 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               CustomSubCategoryScreen(
                                             catId:
                                                 snapshot.data!.data![index].id,
+                                            catName: snapshot
+                                                .data!.data![index].name,
                                           ),
                                         ),
                                       );

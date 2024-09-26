@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Constants/api_url.dart';
 import 'package:service_app/Models/addTocart.dart';
+import 'package:service_app/Models/add_to_cart_products.dart';
 import 'package:service_app/Models/checkout_model.dart';
-import 'package:service_app/Models/product.dart';
 import 'package:service_app/Models/update_cart.dart';
 import 'package:service_app/Models/view_cart.dart';
 import 'package:service_app/Utils/toast_component.dart';
+import 'package:toast/toast.dart';
 
 class CartController extends ChangeNotifier {
 //
@@ -16,46 +17,60 @@ class CartController extends ChangeNotifier {
   ViewCartModel? viewMyCart;
   UpdateCartModel? updateCart;
   ChekoutModel? checkOutModel;
+  bool isLoading = false;
 //
 
-  Future<AddToCartModel?> addToCart(
-      {List<Products>? addedCartProductList, int? userId}) async {
-    Map postData = {
-      "products": addedCartProductList,
-      "user_id": userId,
-    };
+  Future<AddToCartModel?> addToCart(context, CartData cartData) async {
+    ToastContext().init(context);
+    log("MyCartData ==> $cartData");
     try {
       var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.addCart}"),
-        body: jsonEncode(postData),
+        headers: {
+          "accept": "application/json",
+        },
+        body: cartData.toJson(),
       );
+
       log("Added Cart Data ==> ${response.body}");
+
       var jsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
         myAddedCart = AddToCartModel.fromJson(jsonData);
         return myAddedCart;
       } else {
-        ToastComponent.showDialogError("Something went wrong try again later");
+        ToastComponent.showDialogError(
+            "Something went wrong. Please try again later.");
         return AddToCartModel();
       }
     } catch (e) {
       throw e.toString();
     }
   }
+
 //
 
-  Future<ViewCartModel?> getViewMyCart(int? userId) async {
+  Future<ViewCartModel> getViewMyCart(context, int? userId) async {
+    ToastContext().init(context);
+    isLoading = true;
+    notifyListeners();
     try {
       var response = await http.get(
-        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.getViewCart}/$userId"),
-      );
-      log("View Cart Data ==> ${response.body}");
+          Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.getViewCart}/$userId"),
+          headers: {
+            "Accept": "application/json",
+          });
+
       var jsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
         viewMyCart = ViewCartModel.fromJson(jsonData);
-        return viewMyCart;
+        isLoading = false;
+        notifyListeners();
+        return viewMyCart!;
       } else {
-        ToastComponent.showDialogError("Something went wrong try again later");
+        isLoading = false;
+        notifyListeners();
+        ToastComponent.showDialogError("Cart is Empty");
         return ViewCartModel();
       }
     } catch (e) {
@@ -91,23 +106,27 @@ class CartController extends ChangeNotifier {
 
   Future deleteCart(int cartId) async {
     var response = await http.get(
-      Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.getDeleteCart}/$cartId"),
-    );
+        Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.getDeleteCart}/$cartId"),
+        headers: {
+          "Accept": "application/json",
+        });
+    log("MyDeletedCart ==> ${response.body}");
     var jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
+      log("MyDeletedCart ==> ${response.body}");
       ToastComponent.showDialogSuccess("${jsonData['message']}");
     } else {
       ToastComponent.showDialogError("${jsonData['message']}");
     }
   }
 
-//checkout api function:
+//
 
   Future checkout(
-      {String? payment_methodasync,
-      String? total_price,
+      {String? paymentMethod,
+      String? totalPrice,
       String? tax,
-      String? delivery_address}) async {
+      String? deliveryAddress}) async {
     try {
       var response = await http.post(
           Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.checkout}"),
@@ -115,10 +134,10 @@ class CartController extends ChangeNotifier {
             'Accept': 'application/json',
           },
           body: {
-            "payment_method": "cash_on_delivery",
-            "total_price": "150.75",
-            "tax": "15.50",
-            "delivery_address": "123 Main St, City, Country",
+            "payment_method": "$paymentMethod",
+            "total_price": "$totalPrice",
+            "tax": "$tax",
+            "delivery_address": "$deliveryAddress",
           });
       var jsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {

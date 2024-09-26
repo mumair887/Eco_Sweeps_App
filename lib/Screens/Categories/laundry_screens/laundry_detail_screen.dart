@@ -22,8 +22,7 @@ class ProductListingAndDetailScreen extends StatefulWidget {
 
 class _ProductListingAndDetailScreenState
     extends State<ProductListingAndDetailScreen> {
-
- List<Products> cartAddedProducts = [];
+  List<Products> cartAddedProducts = [];
 
   int _count = 1;
   void increment() {
@@ -86,9 +85,10 @@ class _ProductListingAndDetailScreenState
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                             ProductDetailScreen(productId: snapshot.data!.category!
-                                                  .products![index].id!
-                                                  )));
+                                            ProductDetailScreen(
+                                              myProducts: snapshot.data!
+                                                  .category!.products![index],
+                                            )));
                               },
                               child: Column(children: [
                                 Row(
@@ -156,96 +156,6 @@ class _ProductListingAndDetailScreenState
                                                 SizedBox(
                                                   width: width * 0.350,
                                                 ),
-                                                  Row(
-                                                    children: [
-                                                      GestureDetector(
-                                                        onTap: () {
-
-                                                          setState(() {
-                                                            cartAddedProducts.add(snapshot.data!.category!.products![index]);
-                                                           
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          height:
-                                                              height * 0.030,
-                                                          width: width * 0.06,
-                                                          decoration: BoxDecoration(
-                                                              color: Colors.red,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20)),
-                                                          child: const Icon(
-                                                              Icons.remove),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: width * 0.01,
-                                                      ),
-                                                      Text("",
-                                                        // quantities[index]
-                                                        //     .toString(),
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 17),
-                                                      ),
-                                                      SizedBox(
-                                                        width: width * 0.01,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            // quantities[index]++;
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          height:
-                                                              height * 0.030,
-                                                          width: width * 0.06,
-                                                          decoration: BoxDecoration(
-                                                              color:
-                                                                  Colors.green,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20)),
-                                                          child: const Icon(
-                                                              Icons.add),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                              
-                                                  // GestureDetector(
-                                                  //   onTap: () {
-                                                  //     setState(() {
-                                                  //       isAddedToCart[index] =
-                                                  //           true;
-                                                  //       quantities[index] = 1;
-                                                  //     });
-                                                  //   },
-                                                  //   child: ContainerWidget(
-                                                  //     height: height * 0.03,
-                                                  //     width: width * 0.20,
-                                                  //     decoration: BoxDecoration(
-                                                  //       color: AppColors
-                                                  //           .lightgreen,
-                                                  //       borderRadius:
-                                                  //           BorderRadius
-                                                  //               .circular(5),
-                                                  //     ),
-                                                  //     child: Center(
-                                                  //       child: Text(
-                                                  //         'Add Cart',
-                                                  //         style: TextStyle(
-                                                  //             color: AppColors
-                                                  //                 .white),
-                                                  //       ),
-                                                  //     ),
-                                                  //   ),
-                                                  // ),
                                               ],
                                             )
                                           ],

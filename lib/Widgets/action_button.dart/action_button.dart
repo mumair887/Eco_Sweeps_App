@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:service_app/Constants/app_colors.dart';
 
+// ignore: must_be_immutable
 class ActionButton extends StatefulWidget {
-  const ActionButton({super.key});
+  int qunatity;
+  ActionButton({super.key, required this.qunatity});
 
   @override
   State<ActionButton> createState() => _ActionButtonState();
 }
 
 class _ActionButtonState extends State<ActionButton> {
-  int _counter = 0;
-
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      widget.qunatity++;
     });
   }
 
   void _decrementCounter() {
     setState(() {
-      if (_counter > 0) {
-        _counter--;
+      if (widget.qunatity > 0) {
+        widget.qunatity--;
       }
     });
   }
@@ -37,11 +38,12 @@ class _ActionButtonState extends State<ActionButton> {
               _incrementCounter();
             },
             child: CircleAvatar(
-              backgroundColor: Colors.grey.shade400,
-              radius: 15,
-              child: const Icon(
+              backgroundColor: AppColors.white,
+              radius: 10,
+              child: Icon(
                 Icons.add,
-                color: Colors.green,
+                size: 20,
+                color: AppColors.black,
               ),
             ),
           ),
@@ -49,7 +51,7 @@ class _ActionButtonState extends State<ActionButton> {
             height: height * 0.005,
           ),
           Text(
-            '$_counter',
+            '${widget.qunatity}',
             style: const TextStyle(
                 color: Colors.green, fontSize: 21, fontWeight: FontWeight.bold),
           ),
@@ -61,11 +63,12 @@ class _ActionButtonState extends State<ActionButton> {
               _decrementCounter();
             },
             child: CircleAvatar(
-              backgroundColor: Colors.grey.shade400,
-              radius: 15,
-              child: const Icon(
+              backgroundColor: AppColors.white,
+              radius: 10,
+              child: Icon(
                 Icons.remove,
-                color: Colors.green,
+                size: 20,
+                color: AppColors.black,
               ),
             ),
           ),

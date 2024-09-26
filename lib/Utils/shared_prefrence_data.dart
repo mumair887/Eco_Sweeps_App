@@ -31,17 +31,4 @@ class SharedPrefrenceData {
   }
 
 
-  
-  static setproId(int productId) async {
-    SharedPreferences prefes = await SharedPreferences.getInstance();
-    return prefes.setInt('product_id', productId);
-  }
-
-//
-  static getproId() async {
-    SharedPreferences prefes = await SharedPreferences.getInstance();
-    int productid=  prefes.getInt('product_id')!;
-    return productid;
-  }
-
 }

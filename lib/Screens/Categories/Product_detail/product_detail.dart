@@ -1,242 +1,236 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Controller/product_controller.dart';
-
+import 'package:service_app/Models/add_to_cart_products.dart';
+import 'package:service_app/Models/product.dart';
+import 'package:service_app/Screens/Cart/cart_screen.dart';
+import 'package:service_app/Utils/shared_prefrence_data.dart';
 import '../../../Constants/app_colors.dart';
 import '../../../Widgets/round_button_widget.dart';
-import '../../Cart/cart_screen.dart';
 import 'dart:developer';
 
 class ProductDetailScreen extends StatefulWidget {
-  int productId;
-  ProductDetailScreen({super.key, required this.productId});
+  final Products myProducts;
+
+  const ProductDetailScreen({super.key, required this.myProducts});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  List<int> quantities = List.filled(6, 0);
-  List<bool> isAddedToCart = List.filled(6, false);
-
-  int _count = 0;
-  void increment() {
-    setState(() {
-      _count++;
-    });
-  }
-
-  void decrement() {
-    setState(() {
-      if (_count > 0) {
-        _count--;
-      }
-    });
-  }
-
+//
+  CartController myCartController = CartController();
   ProductController productController = ProductController();
+//
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
-        appBar: AppBar(),
-        body: Column(children: [
-          FutureBuilder(
-              future: productController.postProductDetails(widget.productId),
-              builder: (context, snapshot) {
-                log('${snapshot.data}');
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                return Container(
-                  height: height * 0.85,
-                  width: width,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
-                    color: Colors.white,
-                  ),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: height * 0.19,
-                            width: width,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        snapshot.data!.Data!.image),
-                                    fit: BoxFit.cover),
-                                color: Colors.black,
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20))),
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            snapshot.data!.Data!.name,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            snapshot.data!.Data!.description,
-                            // 'Any hourly electrician service you need. Light bulb\nchanges, spotlight fixes, electrical issues solutions.',
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Text(
-                                snapshot.data!.Data!.amount,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(width: 10),
-                              const Text(
-                                'AED 169',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  decoration: TextDecoration.lineThrough,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Divider(),
-                          const SizedBox(height: 10),
-                          const Text(
-                            "What's Included",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: height * 0.030),
-                          Text(
-                            snapshot.data!.Data!.description,
-                          ),
-                          // SizedBox(height: height * 0.030),
-                          // const Text(
-                          //     'Furniture installation.\nTv installation\nCurtain hanging\nDrilling\nDoor installation and repair'),
-                          // SizedBox(height: height * 0.030),
-                          // const Text(
-                          //   'Charges',
-                          //   style: TextStyle(
-                          //       fontSize: 16, fontWeight: FontWeight.bold),
-                          // ),
-                          // const Text(
-                          //   'A visit charge of AED 129 is applicable, covering the first\nhour of work(excluding materials cost)A fee of AED 65 will be charged for every additional 30\nminutes of service after the first hour.\nCanceling the booking within 2 hours of the appointment\nstart time will incur a 30-minute service fee.\nIf a client needs a quote for additional work but decides\nnot to proceed, a 50% visit charge is applied.\nA 30-minute charge will apply if the service is not\nutilized',
-                          // ),
-                          // SizedBox(height: height * 0.020),
-                          // const Text(
-                          //   'Materials',
-                          //   style: TextStyle(
-                          //       fontSize: 16, fontWeight: FontWeight.bold),
-                          // ),
-                          // const Text(
-                          //   'Additional materials required, such as fittings or cables,\nwill be subject to separate charges, excluding the\nbooking amount.\nhe procurement of materials is subject to local market\navailability and may take 2-3 days.\nIf the parts are not available, the booking amount will not\nbe refunded.',
-                          // ),
-                          // SizedBox(height: height * 0.03),
-                          // const Text(
-                          //   'Permits & Cancellation',
-                          //   style: TextStyle(
-                          //       fontSize: 16, fontWeight: FontWeight.bold),
-                          // ),
-                          // const Text(
-                          //   'Sundays and Public Holidays: Permits must be arranged by\nthe customers, especially for drilling holes\nMonday to Saturday after 5pm: Permission should be\narranged by the customers.\nFull property access is required for all jobs. The service fee\nis non-refundable if the professional is unable to proceed\ndue to permit issues.\nCanceling your booking within 2 hours before the\nappointment start time will incur a charge of 50% of the\ntotal booking value.',
-                          // ),
-                          SizedBox(height: height * .15),
-                          Container(
-                            height: height * 0.2,
-                            width: width,
-                            decoration: const BoxDecoration(
-                              color: Colors.white10,
-                              //   boxShadow: [
-                              //     BoxShadow(
-                              //         color: Colors.black12,
-                              //         spreadRadius: 5,
-                              //         blurRadius: 35),
-                              //   ],
-                            ),
-                            child: Column(
+      appBar: AppBar(
+        title: Text(
+          widget.myProducts.name!,
+          style: TextStyle(
+            color: AppColors.black,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder(
+                future:
+                    productController.postProductDetails(widget.myProducts.id!),
+                builder: (context, snapshot) {
+                  log('${snapshot.data}');
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return Container(
+                      width: width,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Center(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      CircleAvatar(
-                                        backgroundColor: Colors.red,
-                                        child: IconButton(
-                                          icon: const Center(
-                                              child: Icon(Icons.remove)),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (_count > 0) {
-                                                _count--;
-                                              }
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: width * 0.020,
-                                      ),
-                                      Text(
-                                        '$_count',
-                                        style: const TextStyle(fontSize: 25),
-                                      ),
-                                      SizedBox(
-                                        width: width * 0.020,
-                                      ),
-                                      CircleAvatar(
-                                        backgroundColor: Colors.green,
-                                        child: IconButton(
-                                          icon: const Icon(Icons.add),
-                                          onPressed: () {
-                                            setState(() {
-                                              _count++;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: width * 0.020,
-                                      ),
-                                    ],
+                                Container(
+                                  height: height * 0.19,
+                                  width: width,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              snapshot.data!.Data!.image),
+                                          fit: BoxFit.cover),
+                                      color: Colors.black,
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20))),
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  snapshot.data!.Data!.name,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: height * 0.03,
+                                const SizedBox(height: 8),
+                                Text(
+                                  snapshot.data!.Data!.description,
+                                  style: const TextStyle(fontSize: 14),
                                 ),
-                                Center(
-                                  child: RoundButtonWidget(
-                                      buttonColor: AppColors.lightgreen,
-                                      title: 'Add  to Cart for AED 130',
-                                      onpress: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const CartScreen()));
-                                      }),
+                                const SizedBox(height: 20),
+                                Row(
+                                  children: [
+                                    Text(
+                                      snapshot.data!.Data!.amount,
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const Text(
+                                      'AED 169',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        decoration: TextDecoration.lineThrough,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Divider(),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  "What's Included",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: height * 0.030),
+                                Text(
+                                  snapshot.data!.Data!.description,
                                 )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                              ])));
+                }),
+            SizedBox(height: height * .15),
+            CounterWidget(myProducts: widget.myProducts)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CounterWidget extends StatefulWidget {
+  final Products? myProducts;
+
+  const CounterWidget({super.key, required this.myProducts});
+
+  @override
+  _CounterWidgetState createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  CartController myCartController = CartController();
+  int count = 1;
+
+  void increment() {
+    setState(() {
+      count++;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      if (count > 1) {
+        count--;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.sizeOf(context).height;
+    double width = MediaQuery.sizeOf(context).width;
+    return Container(
+      height: height * 0.2,
+      width: width,
+      decoration: const BoxDecoration(
+        color: Colors.white10,
+      ),
+      child: Column(
+        children: [
+          Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundColor: Colors.red,
+                  child: IconButton(
+                    icon: const Center(child: Icon(Icons.remove)),
+                    onPressed: () {
+                      decrement();
+                    },
                   ),
-                );
-                //   },
-                // );
-              }),
-        ]));
+                ),
+                SizedBox(
+                  width: width * 0.020,
+                ),
+                Text(
+                  '$count',
+                  style: const TextStyle(fontSize: 25),
+                ),
+                SizedBox(
+                  width: width * 0.020,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.green,
+                  child: IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () {
+                      increment();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: height * 0.03,
+          ),
+          Center(
+            child: RoundButtonWidget(
+                buttonColor: AppColors.lightgreen,
+                title: 'Add  to Cart for AED 130',
+                onpress: () async {
+                  CartData myCartData = CartData(
+                      userId: await SharedPrefrenceData.getUserId(),
+                      products: [
+                        {
+                          "product_id": "${widget.myProducts?.id}",
+                          "quantity": "$count"
+                        }
+                      ]);
+                  myCartController.addToCart(context, myCartData);
+                  int myUserId = await SharedPrefrenceData.getUserId();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CartScreen(
+                                userId: myUserId,
+                              )));
+                }),
+          )
+        ],
+      ),
+    );
   }
 }

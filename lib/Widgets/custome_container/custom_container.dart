@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:service_app/Constants/app_colors.dart';
 import 'package:service_app/Controller/cart_controller.dart';
-import 'package:service_app/Utils/shared_prefrence_data.dart';
+import 'package:service_app/Models/view_cart.dart';
+import 'package:service_app/main.dart';
+
 import '../action_button.dart/action_button.dart';
 
-// ignore: must_be_immutable
-class CustomContainer extends StatelessWidget {
-  final String title;
-  final String image;
-  final String price;
+class CustomContainer extends StatefulWidget {
+  final ViewCartItems myCartItems;
+  final int userId;
 
-   CustomContainer({
-    super.key,
-    required this.title,
-    required this.image,
-    required this.price,
-  });
+  const CustomContainer({super.key, required this.myCartItems, required this.userId});
 
-  CartController cartController=CartController();
+  @override
+  State<CustomContainer> createState() => _CustomContainerState();
+}
+
+class _CustomContainerState extends State<CustomContainer> {
+  CartController cartController = CartController();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -26,60 +29,64 @@ class CustomContainer extends StatelessWidget {
       shadowColor: Colors.grey.shade400,
       child: Container(
         width: width * 0.9,
-        height: height * 0.2,
+        height: height * 0.12,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(11),
-          color: Colors.white,
+          color: AppColors.lightGrey,
         ),
         child: Row(
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                image,
+              child: Image.network(
+                widget.myCartItems.image.toString(),
                 height: height * 0.8,
+                width: width * 0.15,
               ),
             ),
             SizedBox(
               width: width * 0.02,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                Text(
-                  price,
-                  style: const TextStyle(
-                    color: Colors.green,
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+            Align(
+              alignment: Alignment.bottomCenter,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    onPressed: () async{
-                      cartController.deleteCart(await SharedPrefrenceData.getproId());
-                    },
-                    icon: const Icon(Icons.delete),
-                    color: Colors.red,
-                  )
+                  Text(
+                    widget.myCartItems.productName.toString(),
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Text(
+                    widget.myCartItems.totalPrice.toString(),
+                    style: const TextStyle(
+                      color: Colors.green,
+                    ),
+                  ),
                 ],
               ),
             ),
-            const ActionButton(),
+            Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: IconButton(
+                  onPressed: () async {
+                    cartController.deleteCart(widget.myCartItems.productId!);
+                    context.read<CartController>().getViewMyCart(context, widget.userId );
+                    setState(() {});
+                  },
+                  icon: const Icon(Icons.delete),
+                  color: Colors.red,
+                )),
+            const Spacer(),
+            ActionButton(
+              qunatity: widget.myCartItems.quantity!,
+            ),
+            const SizedBox(width: 10)
           ],
         ),
       ),

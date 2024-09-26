@@ -7,7 +7,8 @@ import '../../Models/sub_category.dart';
 
 class CustomSubCategoryScreen extends StatefulWidget {
   final int? catId;
-  const CustomSubCategoryScreen({super.key, required this.catId});
+  final String? catName;
+  const CustomSubCategoryScreen({super.key, required this.catId, required this.catName});
 
   @override
   State<CustomSubCategoryScreen> createState() =>
@@ -29,9 +30,9 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Cleaning Categories',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title:  Text(
+          widget.catName.toString(),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(

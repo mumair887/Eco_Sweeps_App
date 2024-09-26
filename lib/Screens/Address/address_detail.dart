@@ -457,29 +457,6 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
                                                 SizedBox(
                                                   height: height * 0.02,
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    const Text(
-                                                      'Save card details',
-                                                      style: TextStyle(
-                                                          fontSize: 17,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Switch(
-                                                        value: isopen,
-                                                        activeColor: Colors.red,
-                                                        onChanged:
-                                                            (bool newValue) {
-                                                          setState(() {
-                                                            isopen = newValue;
-                                                          });
-                                                        })
-                                                  ],
-                                                ),
                                                 SizedBox(
                                                   height: height * 0.02,
                                                 ),

@@ -1,6 +1,6 @@
 class ViewCartModel {
   int? status;
-  List<CartItems>? cartItems;
+  List<ViewCartItems>? cartItems;
   int? totalPrice;
 
   ViewCartModel({this.status, this.cartItems, this.totalPrice});
@@ -8,9 +8,9 @@ class ViewCartModel {
   ViewCartModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['cart_items'] != null) {
-      cartItems = <CartItems>[];
+      cartItems = <ViewCartItems>[];
       json['cart_items'].forEach((v) {
-        cartItems!.add(CartItems.fromJson(v));
+        cartItems!.add(ViewCartItems.fromJson(v));
       });
     }
     totalPrice = json['total_price'];
@@ -27,26 +27,30 @@ class ViewCartModel {
   }
 }
 
-class CartItems {
+class ViewCartItems {
   int? productId;
   String? productName;
-  String? quantity;
-  Null pricePerUnit;
+  int? quantity;
+  String? image;
+  var pricePerUnit;
   int? totalPrice;
 
-  CartItems(
-      {this.productId,
-      this.productName,
-      this.quantity,
-      this.pricePerUnit,
-      this.totalPrice});
+  ViewCartItems({
+    this.productId,
+    this.productName,
+    this.quantity,
+    this.pricePerUnit,
+    this.totalPrice,
+    this.image,
+  });
 
-  CartItems.fromJson(Map<String, dynamic> json) {
+  ViewCartItems.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
     productName = json['product_name'];
     quantity = json['quantity'];
     pricePerUnit = json['price_per_unit'];
     totalPrice = json['total_price'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -56,6 +60,7 @@ class CartItems {
     data['quantity'] = quantity;
     data['price_per_unit'] = pricePerUnit;
     data['total_price'] = totalPrice;
+    data['image'] = image;
     return data;
   }
 }

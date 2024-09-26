@@ -35,6 +35,7 @@ class _SaveAddressState extends State<SaveAddress> {
                     setState(() {
                       selectedAddressIndex = index;
                     });
+                    Navigator.pop(context, selectedAddressIndex);
                   },
                   child: Container(
                     decoration: BoxDecoration(

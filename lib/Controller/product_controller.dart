@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Constants/api_url.dart';
 import 'package:service_app/Models/product.dart';
@@ -12,8 +11,8 @@ class ProductController extends ChangeNotifier {
 //
   ProductModel? productModel;
   ProductDetailsModel? productDetail;
-
 //
+
   Future<ProductModel> getProducts({int? catId, int? subCatId}) async {
     try {
       var response = await http.post(
@@ -42,21 +41,19 @@ class ProductController extends ChangeNotifier {
 
   Future<ProductDetailsModel> postProductDetails(int productId) async {
     try {
-      log("ogvugyybhgy");
       var response = await http.post(
         Uri.parse("${APIREQUEST.baseUrl}${APIREQUEST.productDetails}"),
         headers: {
           "Accept": "application/json",
         },
         body: {
-          "id": "$productId", // Ensure the ID is passed as a string
+          "id": "$productId",
         },
       );
       log("${response.statusCode}");
 
       var myJsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        log("tgfggdrtgfth${response.body}");
         return ProductDetailsModel.fromJson(myJsonData);
       } else {
         return ProductDetailsModel();
@@ -67,4 +64,6 @@ class ProductController extends ChangeNotifier {
       return ProductDetailsModel();
     }
   }
+//
+
 }
