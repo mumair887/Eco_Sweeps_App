@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Controller/product_controller.dart';
 import 'package:service_app/Models/add_to_cart_products.dart';
@@ -140,7 +142,7 @@ class CounterWidget extends StatefulWidget {
 class _CounterWidgetState extends State<CounterWidget> {
   CartController myCartController = CartController();
   int count = 1;
-
+  double totalPrice = 0;
   void increment() {
     setState(() {
       count++;
@@ -159,6 +161,8 @@ class _CounterWidgetState extends State<CounterWidget> {
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
+    totalPrice = (count * int.parse(widget.myProducts!.amount!.split(" ").last))
+        .toDouble();
     return Container(
       height: height * 0.2,
       width: width,
@@ -208,28 +212,57 @@ class _CounterWidgetState extends State<CounterWidget> {
           Center(
             child: RoundButtonWidget(
                 buttonColor: AppColors.lightgreen,
-                title: 'Add  to Cart for AED 130',
+                title: 'Add  to Cart for AED $totalPrice',
                 onpress: () async {
-                  CartData myCartData = CartData(
-                      userId: await SharedPrefrenceData.getUserId(),
-                      products: [
-                        {
-                          "product_id": "${widget.myProducts?.id}",
-                          "quantity": "$count"
-                        }
-                      ]);
-                  myCartController.addToCart(context, myCartData);
-                  int myUserId = await SharedPrefrenceData.getUserId();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CartScreen(
-                                userId: myUserId,
-                              )));
+                  int userId = await SharedPrefrenceData.getUserId();
+
+                  myCartController.addToCart(
+                      context, userId, widget.myProducts?.id, count);
+                  showAddToCartDialog(context);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => CartScreen(
+                  //               userId: userId,
+                  //             )));
                 }),
           )
         ],
       ),
     );
   }
+}
+
+void showAddToCartDialog(BuildContext context) {
+  showCupertinoDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoAlertDialog(
+        title: const Text('Item Added to Cart'),
+        content:
+            const Text('The item has been successfully added to your cart.'),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: const Text('Shop more'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+            child: const Text('Go to cart'),
+            onPressed: () async {
+              int userId = await SharedPrefrenceData.getUserId();
+              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CartScreen(
+                            userId: userId,
+                          )));
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

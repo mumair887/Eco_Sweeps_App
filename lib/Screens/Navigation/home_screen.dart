@@ -133,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           // Search bar
 
                           CustomTextFormField(
+                            isReadOnly: true,
                             controller: searchController,
                             hintText: 'Look for services',
                             bordercolor: AppColors.black,

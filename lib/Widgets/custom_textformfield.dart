@@ -15,23 +15,26 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String?)? onSaved;
   Function(String)? onFieldSubmitted;
   final TextEditingController? controller;
+  final bool? isReadOnly;
+  final bool? isAutoFocus;
 
   Function(String)? onChanged;
 
-  CustomTextFormField({
-    super.key,
-    this.hintText,
-    this.labelText,
-    this.color,
-    this.bordercolor,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.onTap,
-    this.onSaved,
-    this.controller,
-    this.onChanged,
-    this.onFieldSubmitted,
-  });
+  CustomTextFormField(
+      {super.key,
+      this.hintText,
+      this.labelText,
+      this.color,
+      this.bordercolor,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.onTap,
+      this.onSaved,
+      this.controller,
+      this.onChanged,
+      this.isAutoFocus,
+      this.onFieldSubmitted,
+      this.isReadOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,8 @@ class CustomTextFormField extends StatelessWidget {
       onSaved: onSaved,
       onFieldSubmitted: onFieldSubmitted,
       onChanged: onChanged,
+      readOnly: isReadOnly ?? false,
+      autofocus: isAutoFocus ?? false,
       onTap: onTap,
       decoration: InputDecoration(
         hintText: hintText,

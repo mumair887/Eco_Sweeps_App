@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:service_app/Constants/api_url.dart';
 import 'package:service_app/Models/addTocart.dart';
-import 'package:service_app/Models/add_to_cart_products.dart';
 import 'package:service_app/Models/checkout_model.dart';
 import 'package:service_app/Models/update_cart.dart';
 import 'package:service_app/Models/view_cart.dart';
@@ -20,16 +19,19 @@ class CartController extends ChangeNotifier {
   bool isLoading = false;
 //
 
-  Future<AddToCartModel?> addToCart(context, CartData cartData) async {
+  Future<AddToCartModel?> addToCart(context, userId, productId, qnty) async {
     ToastContext().init(context);
-    log("MyCartData ==> $cartData");
     try {
       var response = await http.post(
         Uri.parse("${APIUrls.baseUrl}${APIUrls.addCart}"),
         headers: {
           "accept": "application/json",
         },
-        body: cartData.toJson(),
+        body: {
+          'user_id': '$userId',
+          'product_id': '$productId',
+          'quantity': '$qnty',
+        },
       );
 
       log("Added Cart Data ==> ${response.body}");
@@ -52,9 +54,9 @@ class CartController extends ChangeNotifier {
 
   Future<ViewCartModel> getViewMyCart(context, int? userId) async {
     ToastContext().init(context);
-    isLoading = true;
-    notifyListeners();
     try {
+      isLoading = true;
+      notifyListeners();
       var response = await http.get(
           Uri.parse("${APIUrls.baseUrl}${APIUrls.getViewCart}/$userId"),
           headers: {
@@ -104,19 +106,26 @@ class CartController extends ChangeNotifier {
   }
 //
 
-  Future deleteCart(int cartId) async {
+  Future deleteCart(context, {int? userId, int? productId}) async {
+    isLoading = true;
+    notifyListeners();
     var response = await http.get(
-        Uri.parse("${APIUrls.baseUrl}${APIUrls.getDeleteCart}/$cartId"),
+        Uri.parse("${APIUrls.baseUrl}${APIUrls.getDeleteCart}/$productId"),
         headers: {
           "Accept": "application/json",
         });
-    log("MyDeletedCart ==> ${response.body}");
     var jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       log("MyDeletedCart ==> ${response.body}");
       ToastComponent.showDialogSuccess("${jsonData['message']}");
+      Future.delayed(const Duration(seconds: 3), () {
+        viewMyCart = null;
+        getViewMyCart(context, userId);
+      });
     } else {
       ToastComponent.showDialogError("${jsonData['message']}");
+      isLoading = false;
+      notifyListeners();
     }
   }
 

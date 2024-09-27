@@ -1,17 +1,19 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:service_app/Constants/app_colors.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Models/view_cart.dart';
-import 'package:service_app/main.dart';
-
 import '../action_button.dart/action_button.dart';
 
 class CustomContainer extends StatefulWidget {
   final ViewCartItems myCartItems;
   final int userId;
 
-  const CustomContainer({super.key, required this.myCartItems, required this.userId});
+  const CustomContainer(
+      {super.key, required this.myCartItems, required this.userId});
 
   @override
   State<CustomContainer> createState() => _CustomContainerState();
@@ -25,7 +27,7 @@ class _CustomContainerState extends State<CustomContainer> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Card(
-      elevation: 2,
+      elevation: 10,
       shadowColor: Colors.grey.shade400,
       child: Container(
         width: width * 0.9,
@@ -72,16 +74,18 @@ class _CustomContainerState extends State<CustomContainer> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+              padding: const EdgeInsets.only(left: 70),
+              child: Align(
+                alignment: Alignment.bottomRight,
                 child: IconButton(
                   onPressed: () async {
-                    cartController.deleteCart(widget.myCartItems.productId!);
-                    context.read<CartController>().getViewMyCart(context, widget.userId );
-                    setState(() {});
+                    showCartDeleteDialog(context);
                   },
                   icon: const Icon(Icons.delete),
                   color: Colors.red,
-                )),
+                ),
+              ),
+            ),
             const Spacer(),
             ActionButton(
               qunatity: widget.myCartItems.quantity!,
@@ -91,5 +95,37 @@ class _CustomContainerState extends State<CustomContainer> {
         ),
       ),
     );
+  }
+
+  showCartDeleteDialog(BuildContext context) {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: const Text('Delete Product'),
+            content: const Text(
+                'Are you sure you want to remove this product from cart?'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: const Text('Yes'),
+                onPressed: () {
+                  setState(() {
+                    context.read<CartController>().deleteCart(context,
+                        userId: widget.userId,
+                        productId: widget.myCartItems.productId);
+                  });
+
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: const Text('No'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

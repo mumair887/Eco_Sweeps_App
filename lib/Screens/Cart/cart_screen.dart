@@ -107,7 +107,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   child: const Center(
                                     child: Text(
-                                      'Proceed To Shipping',
+                                      'Proceed To checkout',
                                       style: TextStyle(
                                         color: Colors.white,
                                       ),

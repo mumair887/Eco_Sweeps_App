@@ -29,7 +29,7 @@ class _ActionButtonState extends State<ActionButton> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

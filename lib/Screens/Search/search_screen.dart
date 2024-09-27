@@ -34,6 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintText: 'Look for services',
                 bordercolor: AppColors.black,
                 prefixIcon: Icons.search,
+                isAutoFocus: true,
                 onChanged: (val) {
                   _mySearchController.search(val);
                   setState(() {});
