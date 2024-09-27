@@ -6,10 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:service_app/Constants/app_colors.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Models/view_cart.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> a080bd0d0bb367507618228d1a0c7fb43b451696
 import '../action_button.dart/action_button.dart';
 
 class CustomContainer extends StatefulWidget {
