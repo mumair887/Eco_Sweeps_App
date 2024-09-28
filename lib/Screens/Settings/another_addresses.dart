@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:service_app/Controller/address_controller.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
+import 'package:service_app/Utils/toast_component.dart';
 import 'package:service_app/Widgets/container_widget.dart';
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
+import 'package:toast/toast.dart';
 
 import '../../../Constants/App_colors.dart';
 import '../../../Models/address_model.dart';
@@ -21,17 +26,10 @@ class _AnotherAddressesState extends State<AnotherAddresses> {
   TextEditingController addresdetail = TextEditingController();
   TextEditingController landmarks = TextEditingController();
   TextEditingController usersId = TextEditingController();
-  String selectedType = ''; // Track selected container
-
-  void _updateSelection(String type) {
-    setState(() {
-      selectedType = type;
-    });
-  }
-
-  bool isopen = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  bool isopen = false;
+  String selectedType = '';
+  String myAddress = '';
   String? userId;
   String? latitude;
   String? longitude;
@@ -40,26 +38,75 @@ class _AnotherAddressesState extends State<AnotherAddresses> {
   String? addressDetail;
   String? landmark;
 
-  void submitAddress() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      AddressModel? result = await AddressController().postAddress(
-        houseno.text.toString(),
-        address.toString(),
-        addresdetail.text,
-        landmarks.text,
-        await SharedPrefrenceData.getUserId(),
-      );
+  void _updateSelection(String type) {
+    setState(() {
+      selectedType = type;
+    });
+  }
 
-      if (result != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Address posted successfully!')),
-        );
+  void fetchFullAddress() async {
+    if (await checkLocationPermission()) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      setState(() {
+        myAddress =
+            '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+      });
+    }
+  }
+
+  Future<bool> checkLocationPermission() async {
+    if (await Permission.location.isGranted) {
+      return true;
+    } else {
+      var status = await Permission.location.request();
+      if (status.isGranted) {
+        return true;
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to post address.')),
-        );
+        return false;
       }
+    }
+  }
+
+  @override
+  void initState() {
+    fetchFullAddress();
+    super.initState();
+  }
+
+  void submitAddress() async {
+    ToastContext().init(context);
+    if (houseno.text == '') {
+      ToastComponent.showDialogError("Please enter house no");
+      return;
+    }
+    if (addresshouse.text == '') {
+      ToastComponent.showDialogError("Please enter building name / Street ");
+      return;
+    }
+    if (addresdetail.text == '') {
+      ToastComponent.showDialogError("Please select address name");
+      return;
+    }
+    AddressModel? result = await AddressController().postAddress(
+      houseno.text.toString(),
+      address.toString(),
+      addresdetail.text,
+      landmarks.text,
+      await SharedPrefrenceData.getUserId(),
+    );
+
+    if (result != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Address posted successfully!')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to post address.')),
+      );
     }
   }
 
@@ -87,7 +134,14 @@ class _AnotherAddressesState extends State<AnotherAddresses> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Dubai - United Arab Emirates'),
+                    SizedBox(
+                      width: width * 0.7,
+                      child: Text(
+                        myAddress,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                     ContainerWidget(
                       height: height * 0.047,
                       width: width * 0.24,
@@ -140,7 +194,10 @@ class _AnotherAddressesState extends State<AnotherAddresses> {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () => _updateSelection('Home'),
+                      onTap: () {
+                        _updateSelection('Home');
+                        addresdetail.text = 'Home';
+                      },
                       child: ContainerWidget(
                         height: height * 0.055,
                         width: width * 0.20,

@@ -4,7 +4,7 @@ import 'package:service_app/Utils/shared_prefrence_data.dart';
 
 import '../Settings/About_ecs.dart';
 import '../Settings/manage_payment.dart';
-import '../Settings/mange_addresses.dart';
+import '../Address/mange_addresses.dart';
 import '../Settings/plus_membership.dart';
 import '../Settings/scheduled_screen.dart';
 import '../Settings/setting_screen.dart';

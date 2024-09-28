@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:service_app/Controller/address_controller.dart';
 import 'package:service_app/Models/get_adress.dart';
-import 'package:service_app/Screens/Save_Address/save_address.dart';
-import 'package:service_app/Utils/shared_prefrence_data.dart';
+import 'package:service_app/Screens/Address/Save_Address/save_address.dart';
 import 'package:service_app/Widgets/container_widget.dart';
 import 'package:service_app/Widgets/custom_textformfield.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
@@ -25,7 +23,7 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
   TextEditingController usersId = TextEditingController();
   String selectedType = ''; // Track selected container
 
-  void _updateSelection(String type) {
+  void updateSelection(String type) {
     setState(() {
       selectedType = type;
     });
@@ -42,28 +40,7 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
   String? addressDetail;
   String? landmark;
 
-  void submitAddress() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      AddressModel? result = await AddressController().postAddress(
-        houseno.text.toString(),
-        address.toString(),
-        addresdetail.text,
-        landmarks.text,
-        await SharedPrefrenceData.getUserId(),
-      );
-
-      if (result != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Address posted successfully!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to post address.')),
-        );
-      }
-    }
-  }
+ 
 
   Address? selectedAddress;
 
@@ -93,22 +70,27 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.white, elevation: 7),
                       onPressed: () async {
-                        // Navigate to the address selection screen and await the result
                         final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const SaveAddress()),
                         );
-
-                        // If a result is returned, update the selected address
                         if (result is Address) {
                           setState(() {
                             selectedAddress = result;
                           });
                         }
                       },
-                      child: const Text('Select Address'),
+                      child: selectedAddress == null
+                          ? Text(
+                              'Select Address',
+                              style: TextStyle(color: AppColors.lightgreen),
+                            )
+                          : Text('Change Address',
+                              style: TextStyle(color: AppColors.lightgreen)),
                     ),
                   ],
                 ),
@@ -116,17 +98,28 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
                 const SizedBox(
                   height: 10,
                 ),
-                // Display the selected address if available
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: Text(
-                      selectedAddress != null
-                          ? 'Selected Address: ${selectedAddress!.address}\nHouse No: ${selectedAddress!.houseNo}\nLandmark: ${selectedAddress!.landmark ?? "N/A"}'
-                          : 'No Address Selected',
-                      style: const TextStyle(fontSize: 18),
-                      textAlign: TextAlign.center,
-                    ),
+                  padding: EdgeInsets.only(
+                      top: selectedAddress == null ? height * 0.15 : 0),
+                  child: Center(
+                    child: selectedAddress != null
+                        ? Card(
+                            elevation: 7,
+                            color: AppColors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                'Selected Address: ${selectedAddress!.address}\nHouse No: ${selectedAddress!.houseNo}\nLandmark: ${selectedAddress!.landmark ?? "N/A"}',
+                                style: const TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                        : const Text(
+                            'No Address Selected...',
+                            style: TextStyle(fontSize: 14),
+                            textAlign: TextAlign.center,
+                          ),
                   ),
                 ),
                 // Button to navigate to the address selection screen
@@ -135,7 +128,7 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
                 ),
 
                 Align(
-                  heightFactor: 8,
+                  heightFactor: selectedAddress != null ? 5 : 8,
                   alignment: Alignment.bottomCenter,
                   child: Center(
                     child: RoundButtonWidget(
@@ -478,8 +471,6 @@ class _BookAddressDetailState extends State<BookAddressDetail> {
                             );
                           },
                         );
-
-                        submitAddress();
 
                         ///------------------------bank detail start---------------------------////
                       },

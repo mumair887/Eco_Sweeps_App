@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../Controller/get_address_controller.dart';
-import '../../Models/get_adress.dart';
+import 'package:service_app/Controller/address_controller.dart';
+import '../../../Models/get_adress.dart';
 
 class SaveAddress extends StatefulWidget {
   const SaveAddress({super.key});
@@ -11,12 +10,13 @@ class SaveAddress extends StatefulWidget {
 }
 
 class _SaveAddressState extends State<SaveAddress> {
+  AddressController myAddessController = AddressController();
   late Future<List<Address>> futureAddresses;
 
   @override
   void initState() {
     super.initState();
-    futureAddresses = fetchAddresses();
+    futureAddresses = myAddessController.fetchAddresses();
   }
 
   @override
@@ -38,13 +38,23 @@ class _SaveAddressState extends State<SaveAddress> {
               itemCount: addresses.length,
               itemBuilder: (context, index) {
                 Address address = addresses[index];
-                return ListTile(
-                  title: Text(address.address),
-                  subtitle: Text(
-                      'House No: ${address.houseNo}, Landmark: ${address.landmark ?? "N/A"}'),
-                      onTap:(){
-                        Navigator.pop(context,address);
-                      }
+                return Padding(
+                  padding: const EdgeInsets.only(
+                      left: 10, right: 10, top: 8, bottom: 8),
+                  child: Card(
+                    child: ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text("Address Name: ${address.address}"),
+                        ),
+                        subtitle: Text('''
+House No: ${address.houseNo}, 
+Landmark: ${address.landmark ?? "N/A"}
+                            '''),
+                        onTap: () {
+                          Navigator.pop(context, address);
+                        }),
+                  ),
                 );
               },
             );

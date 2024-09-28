@@ -1,4 +1,4 @@
-package com.example.service_app
+package com.app.ecosweep
 
 import io.flutter.embedding.android.FlutterActivity
 
