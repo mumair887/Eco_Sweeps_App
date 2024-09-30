@@ -103,6 +103,7 @@ class _AnotherAddressesState extends State<AnotherAddresses> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Address posted successfully!')),
       );
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to post address.')),

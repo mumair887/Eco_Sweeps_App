@@ -51,7 +51,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               SizedBox(height: height * 0.4),
               Center(
                   child: RoundButtonWidget(
-                title: 'Login',
+                title: 'Go to Login',
                 onpress: () {
                   AuthController().signUpwithCode(otpPin!, context);
                 },

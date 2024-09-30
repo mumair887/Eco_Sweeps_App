@@ -61,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: height * .02),
                 Container(
-                  height: height * .07,
+                  height: height * .08,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: AppColors.lightGrey,
@@ -120,7 +120,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-              
                 SizedBox(height: height * .02),
                 Container(
                   height: height * .06, // Adjust the height as needed
@@ -240,13 +239,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   buttonColor: AppColors.lightgreen,
                   onpress: () async {
                     if (formkey.currentState!.validate()) {
-                      authController.signUp(
+                      setState(() {
+                        loading = true; // Show loading indicator
+                      });
+
+                      await authController.signUp(
                         nameController.text,
                         emailcontroller.text,
                         phoneNumbercontroller.text,
                         passwordcontroller.text,
                         context,
                       );
+
+                      setState(() {
+                        loading = false; // Hide loading indicator after sign-up
+                      });
                     }
                   },
                 ),

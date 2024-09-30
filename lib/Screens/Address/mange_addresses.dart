@@ -101,7 +101,7 @@ class _ManageAddressesState extends State<ManageAddresses> {
         Landmark: ${address.landmark ?? "N/A"}
                               '''),
                               onTap: () {
-                                Navigator.pop(context, address);
+                                // Navigator.pop(context, address);
                               }),
                         ),
                       );

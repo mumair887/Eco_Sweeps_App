@@ -21,7 +21,7 @@ class APIUrls {
   static const getViewCart = "/cart";
   static const updateCart = "/update-cart";
   static const getDeleteCart = "/delete-cart";
-  static const bookingApi = "/booking/";
+  static const bookingApi = "/booking";
 
 //Addresses
 
@@ -31,7 +31,7 @@ class APIUrls {
   static const searchapi = "/search";
 
 //profile
-  static const editprofile = "/edit-profile";
+  static const getProfile = "/edit-profile";
   static const updateprofile = "/update-profile";
 
   //checkout

@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final void Function()? onTap;
   final Color? bordercolor;
   final IconData? prefixIcon;
+  final Color? hintColor;
   final IconData? suffixIcon;
   final Function(String?)? onSaved;
   Function(String)? onFieldSubmitted;
@@ -33,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
       this.controller,
       this.onChanged,
       this.isAutoFocus,
+      this.hintColor,
       this.onFieldSubmitted,
       this.isReadOnly});
 
@@ -49,7 +51,7 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
-        hintStyle: TextStyle(color: AppColors.grey),
+        hintStyle: TextStyle(color: hintColor ?? AppColors.grey),
         prefixIcon: Icon(prefixIcon),
         suffixIcon: Icon(suffixIcon),
         enabledBorder: OutlineInputBorder(
