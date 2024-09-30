@@ -6,8 +6,6 @@ import 'package:service_app/Widgets/custom_textformfield.dart';
 import 'package:service_app/Widgets/round_button_widget.dart';
 
 import '../../../Constants/App_colors.dart';
-import '../../../Models/address_model.dart';
-
 class BookAddressDetail extends StatefulWidget {
   const BookAddressDetail({super.key});
 
