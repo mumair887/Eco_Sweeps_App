@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:service_app/Controller/cart_controller.dart';
 import 'package:service_app/Controller/product_controller.dart';
-import 'package:service_app/Models/add_to_cart_products.dart';
+
 import 'package:service_app/Models/product.dart';
 import 'package:service_app/Screens/Cart/cart_screen.dart';
 import 'package:service_app/Utils/shared_prefrence_data.dart';
@@ -12,7 +11,7 @@ import '../../../Widgets/round_button_widget.dart';
 import 'dart:developer';
 
 class ProductDetailScreen extends StatefulWidget {
-  final Products myProducts;
+  final dynamic myProducts;
 
   const ProductDetailScreen({super.key, required this.myProducts});
 
@@ -161,8 +160,19 @@ class _CounterWidgetState extends State<CounterWidget> {
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
-    totalPrice = (count * int.parse(widget.myProducts!.amount!.split(" ").last))
-        .toDouble();
+    String amount = widget.myProducts!.amount!;
+    List<String> amountParts =
+        amount.replaceAll(RegExp(r'[^0-9 ]'), '').split(" ");
+    int parsedValue = 0;
+    for (String part in amountParts) {
+      int? value = int.tryParse(part);
+      if (value != null) {
+        parsedValue = value;
+        break;
+      }
+    }
+
+    totalPrice = double.parse((count * parsedValue).toString());
     return Container(
       height: height * 0.2,
       width: width,
@@ -219,12 +229,6 @@ class _CounterWidgetState extends State<CounterWidget> {
                   myCartController.addToCart(
                       context, userId, widget.myProducts?.id, count);
                   showAddToCartDialog(context);
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => CartScreen(
-                  //               userId: userId,
-                  //             )));
                 }),
           )
         ],
